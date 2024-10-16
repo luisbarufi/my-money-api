@@ -1,0 +1,43 @@
+# Diretórios e arquivos de saída comuns
+bin/
+out/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Módulos e cache do Go
+/vendor/
+pkg/
+*.a
+
+# Arquivo binário principal do Go
+main
+*.o
+
+# Dependências e modulos
+go.sum
+go.work
+go.work.sum
+
+# Arquivos temporários e de backup do sistema operacional
+*.swp
+*.swo
+.DS_Store
+*.bak
+*~
+
+# Configurações locais de IDEs e editores de texto
+.vscode/
+.idea/
+*.iml
+
+# Arquivos de logs
+*.log
+
+# Credenciais e chaves sensíveis
+.env
+*.pem
+*.key
+*.crt
