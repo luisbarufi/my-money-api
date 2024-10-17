@@ -7,7 +7,7 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
 	"github.com/luisbarufi/my-money-api/src/controller/model/request"
-	"github.com/luisbarufi/my-money-api/src/controller/model/response"
+	"github.com/luisbarufi/my-money-api/src/model"
 	"go.uber.org/zap"
 )
 
@@ -29,15 +29,20 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	response := response.UserResponse{
-		ID:    123,
-		Name:  userRequest.Name,
-		Email: userRequest.Email,
+	domain := model.NewUserDomain(
+		userRequest.Name,
+		userRequest.Email,
+		userRequest.Password,
+	)
+
+	if err := domain.CreateUser(); err != nil {
+		c.JSON(err.Code, err)
+		return
 	}
 
 	logger.Info("user successfully created",
 		zap.String("Journey", "createUser"),
 	)
 
-	c.JSON(http.StatusOK, response)
+	c.String(http.StatusOK, "")
 }
