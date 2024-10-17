@@ -3,34 +3,45 @@ package model
 import (
 	"crypto/md5"
 	"encoding/hex"
-
-	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 )
+
+type UserDomainInterface interface {
+	GetName() string
+	GetEmail() string
+	GetPassword() string
+
+	EncryptPassword()
+}
 
 func NewUserDomain(
 	name, email, password string,
 ) UserDomainInterface {
-	return &UserDomain{
+	return &userDomain{
 		name, email, password,
 	}
 }
 
-type UserDomain struct {
-	Name     string
-	Email    string
-	Password string
+type userDomain struct {
+	name     string
+	email    string
+	password string
 }
 
-type UserDomainInterface interface {
-	CreateUser() *rest_err.RestErr
-	UpdateUser(string) *rest_err.RestErr
-	FindUserByID(string) (*UserDomain, *rest_err.RestErr)
-	DeleteUser(string) *rest_err.RestErr
+func (ud *userDomain) GetName() string {
+	return ud.name
 }
 
-func (ud *UserDomain) EncryptPassword() {
+func (ud *userDomain) GetEmail() string {
+	return ud.email
+}
+
+func (ud *userDomain) GetPassword() string {
+	return ud.password
+}
+
+func (ud *userDomain) EncryptPassword() {
 	hash := md5.New()
 	defer hash.Reset()
-	hash.Write([]byte(ud.Password))
-	ud.Password = hex.EncodeToString(hash.Sum(nil))
+	hash.Write([]byte(ud.password))
+	ud.password = hex.EncodeToString(hash.Sum(nil))
 }
