@@ -5,11 +5,14 @@ import (
 	"github.com/luisbarufi/my-money-api/src/controller"
 )
 
-func InitRoutes(r *gin.RouterGroup) {
+func InitRoutes(
+	r *gin.RouterGroup,
+	userController controller.UserControllerInterface,
+) {
 
-	r.GET("/users/:id", controller.FindUserByID)
-	r.GET("/users/email/:email", controller.FindUserByEmail)
-	r.POST("/users", controller.CreateUser)
-	r.PUT("/users/:id", controller.UpdateUser)
-	r.DELETE("/users/:id", controller.DeleteUser)
+	r.GET("/users/:id", userController.FindUserByID)
+	r.GET("/users/email/:email", userController.FindUserByEmail)
+	r.POST("/users", userController.CreateUser)
+	r.PUT("/users/:id", userController.UpdateUser)
+	r.DELETE("/users/:id", userController.DeleteUser)
 }

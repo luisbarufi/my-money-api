@@ -8,11 +8,11 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
 	"github.com/luisbarufi/my-money-api/src/controller/model/request"
 	"github.com/luisbarufi/my-money-api/src/model"
-	"github.com/luisbarufi/my-money-api/src/model/service"
+	"github.com/luisbarufi/my-money-api/src/view"
 	"go.uber.org/zap"
 )
 
-func CreateUser(c *gin.Context) {
+func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 	logger.Info("Init CreateUser Controller", zap.String("Journey", "createUser"))
 	var userRequest request.UserRequest
 
@@ -29,13 +29,11 @@ func CreateUser(c *gin.Context) {
 		userRequest.Password,
 	)
 
-	service := service.NewUserDomainService()
-
-	if err := service.CreateUser(domain); err != nil {
+	if err := uc.service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}
 
 	logger.Info("User Successfully Created", zap.String("Journey", "createUser"))
-	c.String(http.StatusOK, "")
+	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domain))
 }
