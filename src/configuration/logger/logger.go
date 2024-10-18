@@ -2,9 +2,9 @@ package logger
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
+	"github.com/luisbarufi/my-money-api/src/configuration/env"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -73,7 +73,7 @@ func Level() zapcore.Level {
 }
 
 func getOutputLogs() string {
-	output := strings.ToLower(strings.TrimSpace(os.Getenv(LOG_OUTPUT)))
+	output := strings.ToLower(strings.TrimSpace(env.GetEnv(LOG_OUTPUT)))
 	if output == "" {
 		return "stdout"
 	}
@@ -82,7 +82,7 @@ func getOutputLogs() string {
 }
 
 func getLevelLogs() zapcore.Level {
-	switch strings.ToLower(strings.TrimSpace(os.Getenv(LOG_LEVEL))) {
+	switch strings.ToLower(strings.TrimSpace(env.GetEnv(LOG_LEVEL))) {
 	case "warn":
 		return zapcore.WarnLevel
 	case "info":
