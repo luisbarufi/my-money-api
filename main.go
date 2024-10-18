@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/luisbarufi/my-money-api/src/configuration/database/postgres"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/controller"
 	"github.com/luisbarufi/my-money-api/src/controller/routes"
@@ -17,6 +18,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Error Loading .env file: ")
 	}
+
+	postgres.InitConnection()
 
 	service := service.NewUserDomainService()
 	userController := controller.NewUserControllerInterface(service)
