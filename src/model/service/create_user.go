@@ -18,7 +18,9 @@ func (ud *userDomainService) CreateUser(
 
 	userDomainRepository, err := ud.userRepository.CreateUser(userDomain)
 	if err != nil {
-		logger.Error("Error trying to call repository", err, zap.String("Journey", "createUser"))
+		logger.Error("Error trying to call repository",
+			err,
+			zap.String("Journey", "createUser"))
 		return nil, err
 	}
 

@@ -14,7 +14,7 @@ import (
 func (ur *userRepository) CreateUser(
 	userDomain model.UserDomainInterface,
 ) (model.UserDomainInterface, *rest_err.RestErr) {
-	logger.Info("Init createUser repository", zap.String("journey", "createUser"))
+	logger.Info("Init CreateUser Repository", zap.String("journey", "createUser"))
 
 	query := `
 		INSERT INTO users (name, email, password) 
@@ -35,16 +35,23 @@ func (ur *userRepository) CreateUser(
 	var user entity.UserEntity
 
 	if row.Next() {
-		err = row.Scan(&user.ID, &user.Name, &user.Email, &user.Password, &user.CreatedAt, &user.UpdatedAt)
-		if err != nil {
-			return nil, rest_err.NewInternalServerError("Erro ao escanear os resultados")
+		if err = row.Scan(
+			&user.ID,
+			&user.Name,
+			&user.Email,
+			&user.Password,
+			&user.CreatedAt,
+			&user.UpdatedAt,
+		); err != nil {
+			logger.Error("Error scanning results",
+				err,
+				zap.String("journey", "createUser"))
+			return nil, rest_err.NewInternalServerError(err.Error())
 		}
-	} else {
-		return nil, rest_err.NewInternalServerError("Nenhum resultado retornado")
 	}
 
 	logger.Info(
-		"CreateUser repository executed successfully",
+		"CreateUser Repository executed successfully",
 		zap.String("userId", fmt.Sprintf("%d", user.ID)),
 		zap.String("journey", "createUser"))
 
