@@ -3,12 +3,12 @@ package model
 import "time"
 
 type userDomain struct {
-	id         int64
-	name       string
-	email      string
-	password   string
-	created_at time.Time
-	updated_at time.Time
+	id        int64
+	name      string
+	email     string
+	password  string
+	createdAt time.Time
+	updatedAt time.Time
 }
 
 func (ud *userDomain) GetID() int64 {
@@ -20,19 +20,19 @@ func (ud *userDomain) SetID(id int64) {
 }
 
 func (ud *userDomain) GetCreatedAt() time.Time {
-	return ud.created_at
+	return ud.createdAt
 }
 
 func (ud *userDomain) SetCreatedAt(created_at time.Time) {
-	ud.created_at = created_at
+	ud.createdAt = created_at
 }
 
 func (ud *userDomain) GetUpdatedAt() time.Time {
-	return ud.updated_at
+	return ud.updatedAt
 }
 
 func (ud *userDomain) SetUpdatedAt(updated_at time.Time) {
-	ud.updated_at = updated_at
+	ud.updatedAt = updated_at
 }
 
 func (ud *userDomain) GetName() string {

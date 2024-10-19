@@ -22,7 +22,8 @@ func main() {
 
 	database, err := postgres.NewPostgresConnection()
 	if err != nil {
-		logger.Error("Error connecting to PostgreSQL", err)
+		log.Fatalf("Error connecting to PostgreSQL, error: %s \n", err.Error())
+		return
 	}
 	defer database.Close()
 
