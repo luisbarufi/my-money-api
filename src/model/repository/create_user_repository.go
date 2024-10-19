@@ -45,7 +45,7 @@ func (ur *userRepository) CreateUser(
 
 	logger.Info(
 		"CreateUser repository executed successfully",
-		zap.String("UserId", fmt.Sprintf("%d", user.ID)),
+		zap.String("userId", fmt.Sprintf("%d", user.ID)),
 		zap.String("journey", "createUser"))
 
 	return converter.ConvertEntityToDomain(user), nil
