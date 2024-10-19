@@ -14,7 +14,7 @@ import (
 func (ur *userRepository) CreateUser(
 	userDomain model.UserDomainInterface,
 ) (model.UserDomainInterface, *rest_err.RestErr) {
-	logger.Info("Init CreateUser Repository", zap.String("journey", "createUser"))
+	logger.Info("Init CreateUser Repository", zap.String("Journey", "createUser"))
 
 	query := `
 		INSERT INTO users (name, email, password) 
@@ -27,7 +27,7 @@ func (ur *userRepository) CreateUser(
 	if err != nil {
 		logger.Error("Error trying to create user",
 			err,
-			zap.String("journey", "createUser"))
+			zap.String("Journey", "createUser"))
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 	defer row.Close()
@@ -45,7 +45,7 @@ func (ur *userRepository) CreateUser(
 		); err != nil {
 			logger.Error("Error scanning results",
 				err,
-				zap.String("journey", "createUser"))
+				zap.String("Journey", "createUser"))
 			return nil, rest_err.NewInternalServerError(err.Error())
 		}
 	}
@@ -53,7 +53,7 @@ func (ur *userRepository) CreateUser(
 	logger.Info(
 		"CreateUser Repository executed successfully",
 		zap.String("userId", fmt.Sprintf("%d", user.ID)),
-		zap.String("journey", "createUser"))
+		zap.String("Journey", "createUser"))
 
 	return converter.ConvertEntityToDomain(user), nil
 }
