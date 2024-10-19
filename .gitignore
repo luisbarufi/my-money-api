@@ -32,6 +32,7 @@ go.work.sum
 .vscode/
 .idea/
 *.iml
+sql
 
 # Arquivos de logs
 *.log

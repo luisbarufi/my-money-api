@@ -2,30 +2,42 @@ package postgres
 
 import (
 	"database/sql"
-	"fmt"
 
 	_ "github.com/lib/pq"
 	"github.com/luisbarufi/my-money-api/src/configuration/env"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 )
 
-func InitConnection() {
-	connStr := fmt.Sprintf("postgres://%v:%v@%v/%v?sslmode=disable",
-		env.GetEnv("DATABASE_USER"),
-		env.GetEnv("DATABASE_PASSWORD"),
-		env.GetEnv("DATABASE_HOST"),
-		env.GetEnv("DATABASE_NAME"))
+var (
+	CONN_STR = "CONN_STR"
+)
+
+type Database struct {
+	Conn *sql.DB
+}
+
+func NewPostgresConnection() (*Database, error) {
+	connStr := env.GetEnv(CONN_STR)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	logger.Info("Postgres connection established!")
+	logger.Info("PostgreSQL connection established successfully!")
+
+	return &Database{Conn: db}, nil
+}
+
+func (db *Database) Close() {
+	if err := db.Conn.Close(); err != nil {
+		logger.Error("Error closing database connection!", err)
+	} else {
+		logger.Info("Database connection closed!")
+	}
 }
