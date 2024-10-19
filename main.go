@@ -9,6 +9,7 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/controller"
 	"github.com/luisbarufi/my-money-api/src/controller/routes"
+	"github.com/luisbarufi/my-money-api/src/model/repository"
 	"github.com/luisbarufi/my-money-api/src/model/service"
 )
 
@@ -19,9 +20,14 @@ func main() {
 		log.Fatal("Error Loading .env file: ")
 	}
 
-	postgres.InitConnection()
+	database, err := postgres.NewPostgresConnection()
+	if err != nil {
+		logger.Error("Error connecting to PostgreSQL", err)
+	}
+	defer database.Close()
 
-	service := service.NewUserDomainService()
+	repo := repository.NewUserRepository(database)
+	service := service.NewUserDomainService(repo)
 	userController := controller.NewUserControllerInterface(service)
 
 	router := gin.Default()

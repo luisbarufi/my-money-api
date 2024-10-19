@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +14,20 @@ import (
 )
 
 func (uc *userControllerInterface) CreateUser(c *gin.Context) {
-	logger.Info("Init CreateUser Controller", zap.String("Journey", "createUser"))
+	logger.Info(
+		"Init CreateUser Controller",
+		zap.String("Journey", "createUser"),
+	)
+
 	var userRequest request.UserRequest
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil {
-		logger.Error("Error trying to validation user info", err, zap.String("Journey", "createUser"))
+		logger.Error(
+			"Error trying to validation user info",
+			err,
+			zap.String("Journey", "createUser"),
+		)
+
 		restErr := validation.ValidateUserError(err)
 		c.JSON(restErr.Code, restErr)
 		return
@@ -28,12 +38,21 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		userRequest.Email,
 		userRequest.Password,
 	)
-
-	if err := uc.service.CreateUser(domain); err != nil {
+	domainResult, err := uc.service.CreateUser(domain)
+	if err != nil {
+		logger.Error(
+			"Error trying to call CreateUser service",
+			err,
+			zap.String("Journey", "createUser"),
+		)
 		c.JSON(err.Code, err)
 		return
 	}
 
-	logger.Info("User Successfully Created", zap.String("Journey", "createUser"))
-	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domain))
+	logger.Info(
+		"CreateUser controller executed Successfully",
+		zap.String("UserId", fmt.Sprintf("%d", domainResult.GetID())),
+		zap.String("Journey", "createUser"),
+	)
+	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domainResult))
 }
