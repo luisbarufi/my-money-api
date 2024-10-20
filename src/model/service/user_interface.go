@@ -6,9 +6,7 @@ import (
 	"github.com/luisbarufi/my-money-api/src/model/repository"
 )
 
-func NewUserDomainService(
-	userRepository repository.UserRepository,
-) UserDomainService {
+func NewUserDomainService(userRepository repository.UserRepository) UserDomainService {
 	return &userDomainService{userRepository}
 }
 

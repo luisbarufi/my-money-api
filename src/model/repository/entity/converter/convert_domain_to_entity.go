@@ -5,9 +5,7 @@ import (
 	"github.com/luisbarufi/my-money-api/src/model/repository/entity"
 )
 
-func ConvertDomainToEntity(
-	domain model.UserDomainInterface,
-) *entity.UserEntity {
+func ConvertDomainToEntity(domain model.UserDomainInterface) *entity.UserEntity {
 	return &entity.UserEntity{
 		ID:        domain.GetID(),
 		Name:      domain.GetName(),
