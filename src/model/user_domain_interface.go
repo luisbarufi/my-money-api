@@ -7,8 +7,8 @@ type UserDomainInterface interface {
 	GetEmail() string
 	GetPassword() string
 
-	GetID() int64
-	SetID(int64)
+	GetID() uint64
+	SetID(uint64)
 	GetCreatedAt() time.Time
 	SetCreatedAt(created_at time.Time)
 	GetUpdatedAt() time.Time

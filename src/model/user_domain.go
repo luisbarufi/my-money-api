@@ -3,7 +3,7 @@ package model
 import "time"
 
 type userDomain struct {
-	id        int64
+	id        uint64
 	name      string
 	email     string
 	password  string
@@ -11,11 +11,11 @@ type userDomain struct {
 	updatedAt time.Time
 }
 
-func (ud *userDomain) GetID() int64 {
+func (ud *userDomain) GetID() uint64 {
 	return ud.id
 }
 
-func (ud *userDomain) SetID(id int64) {
+func (ud *userDomain) SetID(id uint64) {
 	ud.id = id
 }
 
