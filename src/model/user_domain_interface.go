@@ -4,6 +4,7 @@ import "time"
 
 type UserDomainInterface interface {
 	GetName() string
+	GetNick() string
 	GetEmail() string
 	GetPassword() string
 
@@ -17,11 +18,10 @@ type UserDomainInterface interface {
 	EncryptPassword()
 }
 
-func NewUserDomain(
-	name, email, password string,
-) UserDomainInterface {
+func NewUserDomain(name, nick, email, password string) UserDomainInterface {
 	return &userDomain{
 		name:     name,
+		nick:     nick,
 		email:    email,
 		password: password,
 	}

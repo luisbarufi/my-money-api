@@ -19,16 +19,27 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 	var userRequest request.UserRequest
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil {
-		logger.Error("Error trying to validation user info", err, zap.String("journey", "createUser"))
+		logger.Error("Error trying to validation user info",
+			err,
+			zap.String("journey", "createUser"),
+		)
 		restErr := validation.ValidateUserError(err)
 		c.JSON(restErr.Code, restErr)
 		return
 	}
 
-	domain := model.NewUserDomain(userRequest.Name, userRequest.Email, userRequest.Password)
+	domain := model.NewUserDomain(
+		userRequest.Name,
+		userRequest.Nick,
+		userRequest.Email,
+		userRequest.Password,
+	)
 	domainResult, err := uc.service.CreateUserServices(domain)
 	if err != nil {
-		logger.Error("Error trying to call createUser service", err, zap.String("journey", "createUser"))
+		logger.Error("Error trying to call createUser services",
+			err,
+			zap.String("journey", "createUser"),
+		)
 		c.JSON(err.Code, err)
 		return
 	}

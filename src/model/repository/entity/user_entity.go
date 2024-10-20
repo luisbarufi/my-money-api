@@ -5,6 +5,7 @@ import "time"
 type UserEntity struct {
 	ID        uint64    `json:"id,omitempty"`
 	Name      string    `json:"name"`
+	Nick      string    `json:"nick"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
 	CreatedAt time.Time `json:"created_at,omitempty"`

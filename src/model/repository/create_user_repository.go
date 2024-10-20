@@ -11,16 +11,28 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr) {
+func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (
+	model.UserDomainInterface, *rest_err.RestErr,
+) {
 	logger.Info("Init createUser repository", zap.String("journey", "createUser"))
-	query := `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) 
-						RETURNING id, name, email, password, created_at, updated_at`
+	query := `INSERT INTO users (name, nick, email, password)
+						VALUES ($1, $2, $3, $4) 
+						RETURNING id, name, nick, email, password, created_at, updated_at`
 
 	value := converter.ConvertDomainToEntity(userDomain)
 
-	row, err := ur.db.Conn.Query(query, value.Name, value.Email, value.Password)
+	row, err := ur.db.Conn.Query(
+		query,
+		value.Name,
+		value.Nick,
+		value.Email,
+		value.Password,
+	)
 	if err != nil {
-		logger.Error("Error trying to create user", err, zap.String("journey", "createUser"))
+		logger.Error("Error trying to create user",
+			err,
+			zap.String("journey", "createUser"),
+		)
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 	defer row.Close()
@@ -28,8 +40,19 @@ func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (mode
 	var user entity.UserEntity
 
 	if row.Next() {
-		if err = row.Scan(&user.ID, &user.Name, &user.Email, &user.Password, &user.CreatedAt, &user.UpdatedAt); err != nil {
-			logger.Error("Error scanning results", err, zap.String("journey", "createUser"))
+		if err = row.Scan(
+			&user.ID,
+			&user.Name,
+			&user.Nick,
+			&user.Email,
+			&user.Password,
+			&user.CreatedAt,
+			&user.UpdatedAt,
+		); err != nil {
+			logger.Error("Error scanning results",
+				err,
+				zap.String("journey", "createUser"),
+			)
 			return nil, rest_err.NewInternalServerError(err.Error())
 		}
 	}

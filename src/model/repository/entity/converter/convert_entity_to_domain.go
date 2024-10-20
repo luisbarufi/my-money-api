@@ -6,7 +6,12 @@ import (
 )
 
 func ConvertEntityToDomain(entity entity.UserEntity) model.UserDomainInterface {
-	domain := model.NewUserDomain(entity.Name, entity.Email, entity.Password)
+	domain := model.NewUserDomain(
+		entity.Name,
+		entity.Nick,
+		entity.Email,
+		entity.Password,
+	)
 	domain.SetID(entity.ID)
 	domain.SetCreatedAt(entity.CreatedAt)
 	domain.SetUpdatedAt(entity.UpdatedAt)

@@ -11,6 +11,7 @@ func ConvertDomainToResponse(
 	return response.UserResponse{
 		ID:        userDomain.GetID(),
 		Name:      userDomain.GetName(),
+		Nick:      userDomain.GetNick(),
 		Email:     userDomain.GetEmail(),
 		CreatedAt: userDomain.GetCreatedAt(),
 		UpdatedAt: userDomain.GetUpdatedAt(),

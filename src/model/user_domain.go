@@ -5,6 +5,7 @@ import "time"
 type userDomain struct {
 	id        uint64
 	name      string
+	nick      string
 	email     string
 	password  string
 	createdAt time.Time
@@ -37,6 +38,10 @@ func (ud *userDomain) SetUpdatedAt(updated_at time.Time) {
 
 func (ud *userDomain) GetName() string {
 	return ud.name
+}
+
+func (ud *userDomain) GetNick() string {
+	return ud.nick
 }
 
 func (ud *userDomain) GetEmail() string {
