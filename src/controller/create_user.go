@@ -15,8 +15,8 @@ import (
 
 func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 	logger.Info(
-		"Init CreateUser Controller",
-		zap.String("Journey", "createUser"),
+		"Init createUser controller",
+		zap.String("journey", "createUser"),
 	)
 
 	var userRequest request.UserRequest
@@ -25,7 +25,7 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		logger.Error(
 			"Error trying to validation user info",
 			err,
-			zap.String("Journey", "createUser"),
+			zap.String("journey", "createUser"),
 		)
 
 		restErr := validation.ValidateUserError(err)
@@ -38,21 +38,21 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		userRequest.Email,
 		userRequest.Password,
 	)
-	domainResult, err := uc.service.CreateUser(domain)
+	domainResult, err := uc.service.CreateUserServices(domain)
 	if err != nil {
 		logger.Error(
-			"Error trying to call CreateUser service",
+			"Error trying to call createUser service",
 			err,
-			zap.String("Journey", "createUser"),
+			zap.String("journey", "createUser"),
 		)
 		c.JSON(err.Code, err)
 		return
 	}
 
 	logger.Info(
-		"CreateUser Controller executed successfully",
+		"CreateUser controller executed successfully",
 		zap.String("userId", fmt.Sprintf("%d", domainResult.GetID())),
-		zap.String("Journey", "createUser"),
+		zap.String("journey", "createUser"),
 	)
 	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domainResult))
 }
