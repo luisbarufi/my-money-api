@@ -10,3 +10,8 @@ type UserRequest struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
+
+type UserUpdateRequest struct {
+	Name string `json:"name" binding:"omitempty,min=5,max=100"`
+	Nick string `json:"nick" binding:"omitempty,min=5,max=50"`
+}
