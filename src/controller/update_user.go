@@ -1,11 +1,13 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
-	"strings"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
+	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
 	"github.com/luisbarufi/my-money-api/src/controller/model/request"
 	"github.com/luisbarufi/my-money-api/src/model"
@@ -17,10 +19,18 @@ func (uc *userControllerInterface) UpdateUser(c *gin.Context) {
 
 	var userRequest request.UserUpdateRequest
 
-	userId := c.Param("id")
+	userId, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		logger.Error("Error trying to validate user id, must be integer",
+			err,
+			zap.String("journey", "updateUser"),
+		)
+		errorMessage := rest_err.NewBadRequestError("Invalid user id")
+		c.JSON(errorMessage.Code, errorMessage)
+		return
+	}
 
-	if err := c.ShouldBindJSON(&userRequest); err != nil ||
-		strings.TrimSpace(userId) == "" {
+	if err := c.ShouldBindJSON(&userRequest); err != nil {
 		logger.Error("Error trying to validation user info",
 			err,
 			zap.String("journey", "updateUser"),
@@ -34,19 +44,12 @@ func (uc *userControllerInterface) UpdateUser(c *gin.Context) {
 		userRequest.Name,
 		userRequest.Nick,
 	)
-	err := uc.service.UpdateUser(userId, domain)
-	if err != nil {
-		logger.Error("Error trying to call updateUser services",
-			err,
-			zap.String("journey", "updateUser"),
-		)
-		c.JSON(err.Code, err)
-		return
-	}
+
+	uc.service.UpdateUser(userId, domain)
 
 	logger.Info(
 		"updateUser controller executed successfully",
-		zap.String("userId", userId),
+		zap.String("userId", fmt.Sprintf("%d", userId)),
 		zap.String("journey", "updateUser"),
 	)
 	c.Status(http.StatusOK)

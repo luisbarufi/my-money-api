@@ -13,7 +13,7 @@ import (
 )
 
 func (ur *userRepository) UpdateUser(
-	userId string, userDomain model.UserDomainInterface,
+	userId uint64, userDomain model.UserDomainInterface,
 ) *rest_err.RestErr {
 	logger.Info(
 		"Init updatedUser repository", zap.String("journey", "updatedUser"),
@@ -34,13 +34,13 @@ func (ur *userRepository) UpdateUser(
 	}
 
 	logger.Info("User updated successfully",
-		zap.String("userId", userId),
+		// zap.String("userId", userId),
 		zap.String("journey", "updatedUser"),
 	)
 	return nil
 }
 
-func buildUpdateQuery(userId string, userDomain model.UserDomainInterface) (
+func buildUpdateQuery(userId uint64, userDomain model.UserDomainInterface) (
 	string, []interface{},
 ) {
 	value := converter.ConvertDomainToEntity(userDomain)

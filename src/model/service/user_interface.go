@@ -18,6 +18,6 @@ type UserDomainService interface {
 	CreateUserServices(model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
 	FindUserByIDServices(id uint64) (model.UserDomainInterface, *rest_err.RestErr)
 	FindUserByEmailServices(email string) (model.UserDomainInterface, *rest_err.RestErr)
-	UpdateUser(string, model.UserDomainInterface) *rest_err.RestErr
+	UpdateUser(uint64, model.UserDomainInterface) *rest_err.RestErr
 	DeleteUser(string) *rest_err.RestErr
 }
