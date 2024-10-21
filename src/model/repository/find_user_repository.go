@@ -18,56 +18,51 @@ func (ur *userRepository) FindUserByEmail(email string) (
 		zap.String("journey", "findUserByEmail"),
 	)
 
-	row, err := ur.db.Conn.Query("SELECT * FROM users WHERE email = $1", email)
+	query := buildSelectUserQuery("email")
+	user, err := ur.executeFindUser(query, email)
 	if err != nil {
-		logger.Error("Error trying to find user",
-			err,
-			zap.String("journey", "findUserByEmail"),
-		)
-		return nil, rest_err.NewInternalServerError(err.Error())
-	}
-	defer row.Close()
-
-	var user entity.UserEntity
-
-	if row.Next() {
-		if err = row.Scan(
-			&user.ID,
-			&user.Name,
-			&user.Nick,
-			&user.Email,
-			&user.Password,
-			&user.CreatedAt,
-			&user.UpdatedAt,
-		); err != nil {
-			logger.Error("Error scanning results",
-				err,
-				zap.String("journey", "findUserByEmail"),
-			)
-			return nil, rest_err.NewInternalServerError(err.Error())
-		}
+		return nil, err
 	}
 
-	logger.Info("FindUserByEmail repository executed successfully",
+	logger.Info(
+		"FindUserByEmail repository executed successfully",
 		zap.String("id", fmt.Sprintf("%d", user.ID)),
 		zap.String("journey", "findUserByEmail"),
 	)
-	return converter.ConvertEntityToDomain(user), nil
+	return converter.ConvertEntityToDomain(*user), nil
 }
 
 func (ur *userRepository) FindUserByID(id uint64) (
 	model.UserDomainInterface, *rest_err.RestErr,
 ) {
-	logger.Info("Init findUserByID repository",
+	logger.Info(
+		"Init findUserByID repository",
 		zap.String("journey", "findUserByID"),
 	)
 
-	row, err := ur.db.Conn.Query("SELECT * FROM users WHERE id = $1", id)
+	query := buildSelectUserQuery("id")
+	user, err := ur.executeFindUser(query, id)
 	if err != nil {
-		logger.Error("Error trying to find user",
-			err,
-			zap.String("journey", "findUserByID"),
-		)
+		return nil, err
+	}
+
+	logger.Info("FindUserByID repository executed successfully",
+		zap.String("id", fmt.Sprintf("%d", user.ID)),
+		zap.String("journey", "findUserByID"),
+	)
+	return converter.ConvertEntityToDomain(*user), nil
+}
+
+func buildSelectUserQuery(field string) string {
+	return fmt.Sprintf("SELECT * FROM users WHERE %s = $1", field)
+}
+
+func (ur *userRepository) executeFindUser(query string, arg interface{}) (
+	*entity.UserEntity, *rest_err.RestErr,
+) {
+	row, err := ur.db.Conn.Query(query, arg)
+	if err != nil {
+		logger.Error("Error executing find user query", err)
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 	defer row.Close()
@@ -75,7 +70,7 @@ func (ur *userRepository) FindUserByID(id uint64) (
 	var user entity.UserEntity
 
 	if row.Next() {
-		if err = row.Scan(
+		if err := row.Scan(
 			&user.ID,
 			&user.Name,
 			&user.Nick,
@@ -84,18 +79,9 @@ func (ur *userRepository) FindUserByID(id uint64) (
 			&user.CreatedAt,
 			&user.UpdatedAt,
 		); err != nil {
-			logger.Error("Error scanning results",
-				err,
-				zap.String("journey", "findUserByID"),
-			)
+			logger.Error("Error scanning find user result", err)
 			return nil, rest_err.NewInternalServerError(err.Error())
 		}
 	}
-
-	logger.Info(
-		"FindUserByID repository executed successfully",
-		zap.String("id", fmt.Sprintf("%d", user.ID)),
-		zap.String("journey", "findUserByID"),
-	)
-	return converter.ConvertEntityToDomain(user), nil
+	return &user, nil
 }
