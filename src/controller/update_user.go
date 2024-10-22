@@ -3,7 +3,6 @@ package controller
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
@@ -17,40 +16,40 @@ import (
 func (uc *userControllerInterface) UpdateUser(c *gin.Context) {
 	logger.Info("Init updateUser controller", zap.String("journey", "updateUser"))
 
-	var userRequest request.UserUpdateRequest
-
-	userId, err := strconv.ParseUint(c.Param("id"), 10, 64)
-	if err != nil {
-		logger.Error("Error trying to validate user id, must be integer",
-			err,
-			zap.String("journey", "updateUser"),
-		)
-		errorMessage := rest_err.NewBadRequestError("Invalid user id")
-		c.JSON(errorMessage.Code, errorMessage)
-		return
-	}
-
-	if err := c.ShouldBindJSON(&userRequest); err != nil {
-		logger.Error("Error trying to validation user info",
-			err,
-			zap.String("journey", "updateUser"),
-		)
-		restErr := validation.ValidateUserError(err)
+	userId, restErr := validation.ValidateUserID(c)
+	if restErr != nil {
 		c.JSON(restErr.Code, restErr)
 		return
 	}
 
-	domain := model.NewUserUpdateDomain(
-		userRequest.Name,
-		userRequest.Nick,
-	)
+	userRequest, restErr := validation.ValidateUserUpdateRequest(c)
+	if restErr != nil {
+		c.JSON(restErr.Code, restErr)
+		return
+	}
 
-	uc.service.UpdateUser(userId, domain)
+	if err := uc.callUpdateUserService(userId, userRequest); err != nil {
+		c.JSON(err.Code, err)
+		return
+	}
 
-	logger.Info(
-		"updateUser controller executed successfully",
+	logger.Info("UpdateUser controller executed successfully",
 		zap.String("userId", fmt.Sprintf("%d", userId)),
 		zap.String("journey", "updateUser"),
 	)
 	c.Status(http.StatusOK)
+}
+
+func (uc *userControllerInterface) callUpdateUserService(
+	userId uint64, userRequest *request.UserUpdateRequest,
+) *rest_err.RestErr {
+	domain := model.NewUserUpdateDomain(userRequest.Name, userRequest.Nick)
+	err := uc.service.UpdateUser(userId, domain)
+	if err != nil {
+		logger.Error("Error calling UpdateUser service",
+			err, zap.String("journey", "updateUser"),
+		)
+		return err
+	}
+	return nil
 }
