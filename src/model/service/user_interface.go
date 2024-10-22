@@ -6,7 +6,9 @@ import (
 	"github.com/luisbarufi/my-money-api/src/model/repository"
 )
 
-func NewUserDomainService(userRepository repository.UserRepository) UserDomainService {
+func NewUserDomainService(
+	userRepository repository.UserRepository,
+) UserDomainService {
 	return &userDomainService{userRepository}
 }
 
@@ -15,9 +17,19 @@ type userDomainService struct {
 }
 
 type UserDomainService interface {
-	CreateUserServices(model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
-	FindUserByIDServices(id uint64) (model.UserDomainInterface, *rest_err.RestErr)
-	FindUserByEmailServices(email string) (model.UserDomainInterface, *rest_err.RestErr)
+	CreateUserServices(
+		model.UserDomainInterface,
+	) (model.UserDomainInterface, *rest_err.RestErr)
+
+	FindUserByIDServices(
+		id uint64,
+	) (model.UserDomainInterface, *rest_err.RestErr)
+
+	FindUserByEmailServices(
+		email string,
+	) (model.UserDomainInterface, *rest_err.RestErr)
+
 	UpdateUser(uint64, model.UserDomainInterface) *rest_err.RestErr
-	DeleteUser(string) *rest_err.RestErr
+
+	DeleteUser(uint64) *rest_err.RestErr
 }
