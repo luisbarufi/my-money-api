@@ -102,3 +102,19 @@ func ValidateUserInput(c *gin.Context) (
 	}
 	return &userRequest, nil
 }
+
+func ValidateLoginUserInput(c *gin.Context) (
+	*request.UserLogin, *rest_err.RestErr,
+) {
+	var userLogin request.UserLogin
+	if err := c.ShouldBindJSON(&userLogin); err != nil {
+		logger.Error(
+			"Error trying to validate userLogin info",
+			err,
+			zap.String("journey", "createUser"),
+		)
+		restErr := ValidateUserError(err)
+		return nil, restErr
+	}
+	return &userLogin, nil
+}
