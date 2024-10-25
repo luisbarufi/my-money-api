@@ -20,7 +20,7 @@ func (ud *userDomainService) CreateUserServices(
 	}
 
 	userDomain.EncryptPassword()
-	userDomainRepository, err := ud.userRepository.CreateUser(userDomain)
+	userDomainRepository, err := ud.userRepository.CreateUserRepository(userDomain)
 	if err != nil {
 		logger.Error("Error trying to call repository",
 			err,

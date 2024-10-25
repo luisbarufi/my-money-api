@@ -17,7 +17,7 @@ type userRepository struct {
 }
 
 type UserRepository interface {
-	CreateUser(
+	CreateUserRepository(
 		userDomain model.UserDomainInterface,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
