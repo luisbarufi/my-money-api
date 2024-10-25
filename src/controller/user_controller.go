@@ -16,7 +16,7 @@ func NewUserControllerInterface(
 type UserControllerInterface interface {
 	CreateUserController(c *gin.Context)
 	UpdateUser(c *gin.Context)
-	DeleteUser(c *gin.Context)
+	DeleteUserController(c *gin.Context)
 
 	FindUserByID(c *gin.Context)
 	FindUserByEmail(c *gin.Context)
