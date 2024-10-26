@@ -7,12 +7,11 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
-	"github.com/luisbarufi/my-money-api/src/model"
 	"github.com/luisbarufi/my-money-api/src/view"
 	"go.uber.org/zap"
 )
 
-func (uc *userControllerInterface) FindUserByID(c *gin.Context) {
+func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 	logger.Info("Init findUserByID controller",
 		zap.String("journey", "findUserByID"),
 	)
@@ -23,9 +22,19 @@ func (uc *userControllerInterface) FindUserByID(c *gin.Context) {
 		return
 	}
 
-	userDomain, err := uc.callFindUserByIDService(userID)
+	userDomain, err := uc.service.FindUserByIDServices(userID)
 	if err != nil {
+		logger.Error("Error calling FindUserByID service",
+			err,
+			zap.String("journey", "findUserByID"),
+		)
 		c.JSON(err.Code, err)
+		return
+	}
+
+	if userDomain.GetID() == 0 {
+		errRest := rest_err.NewBadRequestError("User not found")
+		c.JSON(errRest.Code, errRest)
 		return
 	}
 
@@ -35,23 +44,7 @@ func (uc *userControllerInterface) FindUserByID(c *gin.Context) {
 	c.JSON(http.StatusOK, view.ConvertDomainToResponse(userDomain))
 }
 
-func (uc *userControllerInterface) callFindUserByIDService(userID uint64) (
-	model.UserDomainInterface, *rest_err.RestErr,
-) {
-	userDomain, err := uc.service.FindUserByIDServices(userID)
-	if err != nil {
-		logger.Error("Error calling FindUserByID service",
-			err, zap.String("journey", "findUserByID"),
-		)
-		return nil, err
-	}
-	if userDomain.GetID() == 0 {
-		return nil, rest_err.NewNotFoundError("User not found")
-	}
-	return userDomain, nil
-}
-
-func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
+func (uc *userControllerInterface) FindUserByEmailController(c *gin.Context) {
 	logger.Info("Init findUserByEmail controller",
 		zap.String("journey", "findUserByEmail"),
 	)
@@ -62,9 +55,18 @@ func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
 		return
 	}
 
-	userDomain, err := uc.callFindUserByEmailService(userEmail)
+	userDomain, err := uc.service.FindUserByEmailServices(userEmail)
 	if err != nil {
+		logger.Error("Error calling FindUserByEmail service",
+			err, zap.String("journey", "findUserByEmail"),
+		)
 		c.JSON(err.Code, err)
+		return
+	}
+
+	if userDomain.GetID() == 0 {
+		errRest := rest_err.NewBadRequestError("User not found")
+		c.JSON(errRest.Code, errRest)
 		return
 	}
 
@@ -72,20 +74,4 @@ func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
 		zap.String("journey", "findUserByEmail"),
 	)
 	c.JSON(http.StatusOK, view.ConvertDomainToResponse(userDomain))
-}
-
-func (uc *userControllerInterface) callFindUserByEmailService(
-	userEmail string,
-) (model.UserDomainInterface, *rest_err.RestErr) {
-	userDomain, err := uc.service.FindUserByEmailServices(userEmail)
-	if err != nil {
-		logger.Error("Error calling FindUserByEmail service",
-			err, zap.String("journey", "findUserByEmail"),
-		)
-		return nil, err
-	}
-	if userDomain.GetID() == 0 {
-		return nil, rest_err.NewNotFoundError("User not found")
-	}
-	return userDomain, nil
 }

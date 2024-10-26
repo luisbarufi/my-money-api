@@ -16,8 +16,8 @@ func (ud *userDomainService) LoginUserServices(
 
 	userDomain.EncryptPassword()
 	user, err := ud.findUserByEmailAndPasswordServices(
-		userDomain.GetPassword(),
 		userDomain.GetEmail(),
+		userDomain.GetPassword(),
 	)
 	if err != nil {
 		logger.Error(

@@ -12,7 +12,7 @@ func (ud *userDomainService) FindUserByIDServices(id uint64) (
 ) {
 	logger.Info("Init findUserByID", zap.String("journey", "findUserByID"))
 
-	return ud.userRepository.FindUserByID(id)
+	return ud.userRepository.FindUserByIDRepository(id)
 }
 
 func (ud *userDomainService) FindUserByEmailServices(email string) (
@@ -20,7 +20,7 @@ func (ud *userDomainService) FindUserByEmailServices(email string) (
 ) {
 	logger.Info("Init findUserByEmail", zap.String("journey", "findUserByEmail"))
 
-	return ud.userRepository.FindUserByEmail(email)
+	return ud.userRepository.FindUserByEmailRepository(email)
 }
 
 func (ud *userDomainService) findUserByEmailAndPasswordServices(
@@ -28,5 +28,5 @@ func (ud *userDomainService) findUserByEmailAndPasswordServices(
 ) (model.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init findUserByEmail", zap.String("journey", "findUserByEmail"))
 
-	return ud.userRepository.FindUserByEmailAndPassword(email, password)
+	return ud.userRepository.FindUserByEmailAndPasswordRepository(email, password)
 }

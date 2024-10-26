@@ -18,8 +18,8 @@ type UserControllerInterface interface {
 	UpdateUser(c *gin.Context)
 	DeleteUserController(c *gin.Context)
 
-	FindUserByID(c *gin.Context)
-	FindUserByEmail(c *gin.Context)
+	FindUserByIDController(c *gin.Context)
+	FindUserByEmailController(c *gin.Context)
 
 	LoginUser(c *gin.Context)
 }
