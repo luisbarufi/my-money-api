@@ -51,6 +51,10 @@ func (ur *userRepository) FindUserByEmailRepository(email string) (
 		}
 	}
 
+	if user.ID == 0 {
+		return nil, rest_err.NewNotFoundError("User not found")
+	}
+
 	logger.Info(
 		"FindUserByEmail repository executed successfully",
 		zap.String("id", fmt.Sprintf("%d", user.ID)),
@@ -100,6 +104,10 @@ func (ur *userRepository) FindUserByIDRepository(id uint64) (
 		}
 	}
 
+	if user.ID == 0 {
+		return nil, rest_err.NewNotFoundError("User not found")
+	}
+
 	logger.Info(
 		"FindUserByID repository executed successfully",
 		zap.String("id", fmt.Sprintf("%d", user.ID)),
@@ -146,6 +154,10 @@ func (ur *userRepository) FindUserByEmailAndPasswordRepository(
 			)
 			return nil, rest_err.NewInternalServerError(err.Error())
 		}
+	}
+
+	if user.ID == 0 {
+		return nil, rest_err.NewNotFoundError("Email or password incorrect")
 	}
 
 	logger.Info(

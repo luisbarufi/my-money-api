@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
-	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
 	"github.com/luisbarufi/my-money-api/src/view"
 	"go.uber.org/zap"
@@ -32,12 +31,6 @@ func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 		return
 	}
 
-	if userDomain.GetID() == 0 {
-		errRest := rest_err.NewBadRequestError("User not found")
-		c.JSON(errRest.Code, errRest)
-		return
-	}
-
 	logger.Info("FindUserByID controller executed successfully",
 		zap.String("journey", "findUserByID"),
 	)
@@ -61,12 +54,6 @@ func (uc *userControllerInterface) FindUserByEmailController(c *gin.Context) {
 			err, zap.String("journey", "findUserByEmail"),
 		)
 		c.JSON(err.Code, err)
-		return
-	}
-
-	if userDomain.GetID() == 0 {
-		errRest := rest_err.NewBadRequestError("User not found")
-		c.JSON(errRest.Code, errRest)
 		return
 	}
 
