@@ -2,9 +2,12 @@ package controller
 
 import (
 	"net/http"
+	"net/mail"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
+	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
 	"github.com/luisbarufi/my-money-api/src/view"
 	"go.uber.org/zap"
@@ -15,19 +18,24 @@ func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 		zap.String("journey", "findUserByID"),
 	)
 
-	userID, restErr := validation.ValidateUserID(c)
-	if restErr != nil {
+	userId, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		logger.Error("Error trying to validate user id, must be integer",
+			err,
+			zap.String("journey", "findUserByID"),
+		)
+		restErr := rest_err.NewBadRequestError("Invalid user id")
 		c.JSON(restErr.Code, restErr)
 		return
 	}
 
-	userDomain, err := uc.service.FindUserByIDServices(userID)
-	if err != nil {
+	userDomain, restErr := uc.service.FindUserByIDService(userId)
+	if restErr != nil {
 		logger.Error("Error calling FindUserByID service",
-			err,
+			restErr,
 			zap.String("journey", "findUserByID"),
 		)
-		c.JSON(err.Code, err)
+		c.JSON(restErr.Code, restErr)
 		return
 	}
 
@@ -42,13 +50,18 @@ func (uc *userControllerInterface) FindUserByEmailController(c *gin.Context) {
 		zap.String("journey", "findUserByEmail"),
 	)
 
-	userEmail, restErr := validation.ValidateUserEmail(c)
-	if restErr != nil {
+	userEmail := c.Param("email")
+	if _, err := mail.ParseAddress(userEmail); err != nil {
+		logger.Error("Error trying to validate email",
+			err,
+			zap.String("journey", "findUserByEmail"),
+		)
+		restErr := validation.ValidateUserError(err)
 		c.JSON(restErr.Code, restErr)
 		return
 	}
 
-	userDomain, err := uc.service.FindUserByEmailServices(userEmail)
+	userDomain, err := uc.service.FindUserByEmailService(userEmail)
 	if err != nil {
 		logger.Error("Error calling FindUserByEmail service",
 			err, zap.String("journey", "findUserByEmail"),

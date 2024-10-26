@@ -17,19 +17,19 @@ type userDomainService struct {
 }
 
 type UserDomainService interface {
-	CreateUserServices(
+	CreateUserService(
 		model.UserDomainInterface,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
-	FindUserByIDServices(
+	FindUserByIDService(
 		id uint64,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
-	FindUserByEmailServices(
+	FindUserByEmailService(
 		email string,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
-	LoginUserServices(
+	LoginUserService(
 		userDomain model.UserDomainInterface,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 

@@ -9,12 +9,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ud *userDomainService) CreateUserServices(
+func (ud *userDomainService) CreateUserService(
 	userDomain model.UserDomainInterface,
 ) (model.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init createUser services", zap.String("journey", "createUser"))
 
-	user, _ := ud.FindUserByEmailServices(userDomain.GetEmail())
+	user, _ := ud.FindUserByEmailService(userDomain.GetEmail())
 	if user != nil {
 		return nil, rest_err.NewBadRequestError("Email is already in use")
 	}
