@@ -21,7 +21,7 @@ type UserRepository interface {
 		userDomain model.UserDomainInterface,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
-	UpdateUser(
+	UpdateUserRepository(
 		userId uint64,
 		userDomain model.UserDomainInterface,
 	) *rest_err.RestErr

@@ -9,11 +9,11 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ud *userDomainService) UpdateUser(
+func (ud *userDomainService) UpdateUserService(
 	userId uint64, useruserDomain model.UserDomainInterface) *rest_err.RestErr {
 	logger.Info("Init updateUser services", zap.String("journey", "updateUser"))
 
-	err := ud.userRepository.UpdateUser(userId, useruserDomain)
+	err := ud.userRepository.UpdateUserRepository(userId, useruserDomain)
 	if err != nil {
 		logger.Error("Error trying to call repository", err, zap.String("journey", "updateUser"))
 		return err

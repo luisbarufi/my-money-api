@@ -33,7 +33,7 @@ type UserDomainService interface {
 		userDomain model.UserDomainInterface,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
-	UpdateUser(uint64, model.UserDomainInterface) *rest_err.RestErr
+	UpdateUserService(uint64, model.UserDomainInterface) *rest_err.RestErr
 
 	DeleteUserService(uint64) *rest_err.RestErr
 }

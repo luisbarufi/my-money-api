@@ -12,37 +12,19 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ur *userRepository) UpdateUser(
+func (ur *userRepository) UpdateUserRepository(
 	userId uint64, userDomain model.UserDomainInterface,
 ) *rest_err.RestErr {
 	logger.Info(
 		"Init updatedUser repository", zap.String("journey", "updatedUser"),
 	)
 
-	query, args := buildUpdateQuery(userId, userDomain)
-
-	if len(args) == 1 {
-		logger.Info(
-			"No parameters were provided to update",
-			zap.String("journey", "updatedUser"),
-		)
-		return nil
+	user, _ := ur.FindUserByIDRepository(userId)
+	if user == nil {
+		logger.Info("User ID not found", zap.String("journey", "updatedUser"))
+		return rest_err.NewNotFoundError("User ID not found")
 	}
 
-	if err := ur.executeUpdateQuery(query, args); err != nil {
-		return err
-	}
-
-	logger.Info("User updated successfully",
-		// zap.String("userId", userId),
-		zap.String("journey", "updatedUser"),
-	)
-	return nil
-}
-
-func buildUpdateQuery(userId uint64, userDomain model.UserDomainInterface) (
-	string, []interface{},
-) {
 	value := converter.ConvertDomainToEntity(userDomain)
 	updates := make([]string, 0)
 	args := make([]interface{}, 0)
@@ -61,27 +43,40 @@ func buildUpdateQuery(userId uint64, userDomain model.UserDomainInterface) (
 	}
 
 	args = append(args, userId)
+
 	query := fmt.Sprintf(
 		"UPDATE users SET %s WHERE id = $%d", strings.Join(updates, ", "), len(args),
 	)
 
-	return query, args
-}
+	if len(args) == 1 {
+		logger.Info(
+			"No parameters were provided to update",
+			zap.String("journey", "updatedUser"),
+		)
+		return nil
+	}
 
-func (ur *userRepository) executeUpdateQuery(
-	query string, args []interface{},
-) *rest_err.RestErr {
 	statement, err := ur.db.Conn.Prepare(query)
 	if err != nil {
-		logger.Error("Error preparing update user query", err)
+		logger.Error("Error preparing update user query",
+			err,
+			zap.String("journey", "updatedUser"),
+		)
 		return rest_err.NewInternalServerError(err.Error())
 	}
 	defer statement.Close()
 
 	if _, err := statement.Exec(args...); err != nil {
-		logger.Error("Error executing update user query", err)
+		logger.Error("Error executing update user query",
+			err,
+			zap.String("journey", "updatedUser"),
+		)
 		return rest_err.NewInternalServerError(err.Error())
 	}
 
+	logger.Info("User updated successfully",
+		zap.String("userId", fmt.Sprintf("%d", userId)),
+		zap.String("journey", "updatedUser"),
+	)
 	return nil
 }

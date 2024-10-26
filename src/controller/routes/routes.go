@@ -9,7 +9,7 @@ func InitRoutes(r *gin.RouterGroup, userController controller.UserControllerInte
 	r.GET("/users/:id", userController.FindUserByIDController)
 	r.GET("/users/email/:email", userController.FindUserByEmailController)
 	r.POST("/users", userController.CreateUserController)
-	r.PUT("/users/:id", userController.UpdateUser)
+	r.PUT("/users/:id", userController.UpdateUserController)
 	r.DELETE("/users/:id", userController.DeleteUserController)
 
 	r.POST("/login", userController.LoginUserController)
