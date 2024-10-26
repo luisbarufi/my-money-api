@@ -11,10 +11,11 @@ import (
 
 func (ud *userDomainService) LoginUserService(
 	userDomain model.UserDomainInterface,
-) (model.UserDomainInterface, *rest_err.RestErr) {
+) (model.UserDomainInterface, string, *rest_err.RestErr) {
 	logger.Info("Init loginUser services", zap.String("journey", "loginUser"))
 
 	userDomain.EncryptPassword()
+
 	user, err := ud.findUserByEmailAndPasswordService(
 		userDomain.GetEmail(),
 		userDomain.GetPassword(),
@@ -25,7 +26,17 @@ func (ud *userDomainService) LoginUserService(
 			err,
 			zap.String("journey", "loginUser"),
 		)
-		return nil, err
+		return nil, "", err
+	}
+
+	token, err := user.GenerateToken()
+	if err != nil {
+		logger.Error(
+			"Error generating jwt token",
+			err,
+			zap.String("journey", "loginUser"),
+		)
+		return nil, "", err
 	}
 
 	logger.Info(
@@ -33,5 +44,5 @@ func (ud *userDomainService) LoginUserService(
 		zap.String("userId", fmt.Sprintf("%d", user.GetID())),
 		zap.String("journey", "loginUser"),
 	)
-	return user, nil
+	return user, token, nil
 }

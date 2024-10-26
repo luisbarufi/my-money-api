@@ -1,6 +1,10 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
+)
 
 type UserDomainInterface interface {
 	GetName() string
@@ -16,6 +20,7 @@ type UserDomainInterface interface {
 	SetUpdatedAt(updated_at time.Time)
 
 	EncryptPassword()
+	GenerateToken() (string, *rest_err.RestErr)
 }
 
 func NewUserDomain(name, nick, email, password string) UserDomainInterface {

@@ -34,7 +34,7 @@ func (uc *userControllerInterface) LoginUserController(c *gin.Context) {
 		userLogin.Password,
 	)
 
-	domainResult, err := uc.service.LoginUserService(domain)
+	domainResult, token, err := uc.service.LoginUserService(domain)
 	if err != nil {
 		logger.Error(
 			"Error calling loginUser service",
@@ -50,5 +50,6 @@ func (uc *userControllerInterface) LoginUserController(c *gin.Context) {
 		zap.String("journey", "loginUser"),
 	)
 
+	c.Header("Authorization", token)
 	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domainResult))
 }
