@@ -29,6 +29,10 @@ type UserDomainService interface {
 		email string,
 	) (model.UserDomainInterface, *rest_err.RestErr)
 
+	ResetPasswordService(
+		userDomain model.UserDomainInterface,
+	) (model.UserDomainInterface, string, *rest_err.RestErr)
+
 	LoginUserService(
 		userDomain model.UserDomainInterface,
 	) (model.UserDomainInterface, string, *rest_err.RestErr)

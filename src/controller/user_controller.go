@@ -22,6 +22,7 @@ type UserControllerInterface interface {
 	FindUserByEmailController(c *gin.Context)
 
 	LoginUserController(c *gin.Context)
+	PasswordResetController(c *gin.Context)
 }
 
 type userControllerInterface struct {

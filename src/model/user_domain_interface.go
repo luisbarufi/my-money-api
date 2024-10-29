@@ -21,6 +21,7 @@ type UserDomainInterface interface {
 
 	EncryptPassword()
 	GenerateToken() (string, *rest_err.RestErr)
+	GenerateResetToken() (string, *rest_err.RestErr)
 }
 
 func NewUserDomain(name, nick, email, password string) UserDomainInterface {
@@ -33,6 +34,13 @@ func NewUserDomain(name, nick, email, password string) UserDomainInterface {
 }
 
 func NewUserLoginDomain(email, password string) UserDomainInterface {
+	return &userDomain{
+		email:    email,
+		password: password,
+	}
+}
+
+func NewUserResetPasswordDomain(email, password string) UserDomainInterface {
 	return &userDomain{
 		email:    email,
 		password: password,

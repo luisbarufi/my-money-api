@@ -14,6 +14,7 @@ import (
 
 var (
 	JWT_SECRET_KEY = "JWT_SECRET_KEY"
+	SECRET_KEY     = "SECRET_KEY"
 )
 
 func (ud *userDomain) GenerateToken() (string, *rest_err.RestErr) {
@@ -37,6 +38,45 @@ func (ud *userDomain) GenerateToken() (string, *rest_err.RestErr) {
 	}
 
 	return tokenString, nil
+}
+
+func (ud *userDomain) GenerateResetToken() (string, *rest_err.RestErr) {
+	secretKey := env.GetEnv(SECRET_KEY)
+
+	claims := jwt.MapClaims{
+		"user_id": ud.id,
+		"exp":     time.Now().Add(15 * time.Minute).Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	signedToken, err := token.SignedString([]byte(secretKey))
+	if err != nil {
+		return "", rest_err.NewInternalServerError(
+			fmt.Sprintf("error trying to generate jwt token, err=%s", err.Error()),
+		)
+	}
+
+	return signedToken, nil
+}
+
+func ParseAndValidateResetToken(tokenString, secretKey string) (*jwt.Token, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("método de assinatura inesperado: %v", token.Header["alg"])
+		}
+		return []byte(secretKey), nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if !token.Valid {
+		return nil, fmt.Errorf("token inválido ou expirado")
+	}
+
+	return token, nil
 }
 
 func VerifyTokenMiddleware(c *gin.Context) {
