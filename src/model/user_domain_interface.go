@@ -40,10 +40,9 @@ func NewUserLoginDomain(email, password string) UserDomainInterface {
 	}
 }
 
-func NewUserResetPasswordDomain(email, password string) UserDomainInterface {
+func NewUserResetPasswordDomain(email string) UserDomainInterface {
 	return &userDomain{
-		email:    email,
-		password: password,
+		email: email,
 	}
 }
 

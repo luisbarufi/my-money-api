@@ -18,11 +18,11 @@ type PasswordResetResponse struct {
 	ResetToken string      `json:"resetToken"`
 }
 
-func (uc *userControllerInterface) PasswordResetController(c *gin.Context) {
+func (uc *userControllerInterface) ForgotPasswordController(c *gin.Context) {
 
-	var userResetPassword request.UserResetPassword
+	var userForgotPassword request.UserForgotPassword
 
-	if err := c.ShouldBindJSON(&userResetPassword); err != nil {
+	if err := c.ShouldBindJSON(&userForgotPassword); err != nil {
 		logger.Error(
 			"Error trying to validate passwordReset info",
 			err,
@@ -34,11 +34,10 @@ func (uc *userControllerInterface) PasswordResetController(c *gin.Context) {
 	}
 
 	domain := model.NewUserResetPasswordDomain(
-		userResetPassword.Email,
-		userResetPassword.NewPassword,
+		userForgotPassword.Email,
 	)
 
-	domainResult, resetToken, err := uc.service.ResetPasswordService(domain)
+	domainResult, resetToken, err := uc.service.ForgotPasswordService(domain)
 	if err != nil {
 		logger.Error(
 			"Error calling passwordReset service",
