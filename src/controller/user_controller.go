@@ -23,6 +23,7 @@ type UserControllerInterface interface {
 
 	LoginUserController(c *gin.Context)
 	ForgotPasswordController(c *gin.Context)
+	UpdatePasswordController(c *gin.Context)
 }
 
 type userControllerInterface struct {

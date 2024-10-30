@@ -40,4 +40,8 @@ type UserDomainService interface {
 	UpdateUserService(uint64, model.UserDomainInterface) *rest_err.RestErr
 
 	DeleteUserService(uint64) *rest_err.RestErr
+
+	UpdatePasswordService(
+		token string, userDomain model.UserDomainInterface,
+	) *rest_err.RestErr
 }

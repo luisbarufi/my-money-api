@@ -16,4 +16,5 @@ func InitRoutes(r *gin.RouterGroup, userController controller.UserControllerInte
 	r.POST("/login", userController.LoginUserController)
 
 	r.POST("/forgot-password", userController.ForgotPasswordController)
+	r.POST("/update-password", userController.UpdatePasswordController)
 }

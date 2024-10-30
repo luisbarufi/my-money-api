@@ -60,25 +60,6 @@ func (ud *userDomain) GenerateResetToken() (string, *rest_err.RestErr) {
 	return signedToken, nil
 }
 
-func ParseAndValidateResetToken(tokenString, secretKey string) (*jwt.Token, error) {
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("método de assinatura inesperado: %v", token.Header["alg"])
-		}
-		return []byte(secretKey), nil
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	if !token.Valid {
-		return nil, fmt.Errorf("token inválido ou expirado")
-	}
-
-	return token, nil
-}
-
 func VerifyTokenMiddleware(c *gin.Context) {
 	secret := env.GetEnv(JWT_SECRET_KEY)
 	tokenValue := strings.TrimPrefix(c.Request.Header.Get("Authorization"), "Bearer ")
