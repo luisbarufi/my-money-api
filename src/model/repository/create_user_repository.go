@@ -23,7 +23,7 @@ func (ur *userRepository) CreateUserRepository(
 
 	value := converter.ConvertDomainToEntity(userDomain)
 
-	row, err := ur.db.Conn.Query(
+	row, err := ur.db.Query(
 		query,
 		value.Name,
 		value.Nick,

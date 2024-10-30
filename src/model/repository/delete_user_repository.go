@@ -9,7 +9,7 @@ import (
 func (ur *userRepository) DeleteUserRepository(userId uint64) *rest_err.RestErr {
 	logger.Info("Init deleteUser repository", zap.String("journey", "deleteUser"))
 
-	statement, err := ur.db.Conn.Prepare("DELETE FROM users WHERE id = $1")
+	statement, err := ur.db.Prepare("DELETE FROM users WHERE id = $1")
 	if err != nil {
 		logger.Error("Error preparing delete statement",
 			err,

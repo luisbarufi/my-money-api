@@ -18,7 +18,7 @@ func (ur *userRepository) FindUserByEmailRepository(email string) (
 		zap.String("journey", "findUserByEmail"),
 	)
 
-	row, err := ur.db.Conn.Query("SELECT * FROM users WHERE email = $1", email)
+	row, err := ur.db.Query("SELECT * FROM users WHERE email = $1", email)
 
 	if err != nil {
 		logger.Error(
@@ -71,7 +71,7 @@ func (ur *userRepository) FindUserByIDRepository(id uint64) (
 		zap.String("journey", "findUserByID"),
 	)
 
-	row, err := ur.db.Conn.Query("SELECT * FROM users WHERE id = $1", id)
+	row, err := ur.db.Query("SELECT * FROM users WHERE id = $1", id)
 
 	if err != nil {
 		logger.Error(
@@ -124,7 +124,7 @@ func (ur *userRepository) FindUserByEmailAndPasswordRepository(
 	)
 
 	query := "SELECT * FROM users WHERE email = $1 AND password = $2"
-	row, err := ur.db.Conn.Query(query, email, password)
+	row, err := ur.db.Query(query, email, password)
 	if err != nil {
 		logger.Error(
 			"Error executing executeFindUserByEmailAndPassword query",

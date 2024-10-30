@@ -1,19 +1,20 @@
 package repository
 
 import (
-	"github.com/luisbarufi/my-money-api/src/configuration/database/postgres"
+	"database/sql"
+
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/model"
 )
 
-func NewUserRepository(dataBase *postgres.Database) UserRepository {
+func NewUserRepository(dataBase *sql.DB) UserRepository {
 	return &userRepository{
 		dataBase,
 	}
 }
 
 type userRepository struct {
-	db *postgres.Database
+	db *sql.DB
 }
 
 type UserRepository interface {
@@ -35,4 +36,8 @@ type UserRepository interface {
 	FindUserByIDRepository(id uint64) (model.UserDomainInterface, *rest_err.RestErr)
 
 	DeleteUserRepository(userId uint64) *rest_err.RestErr
+
+	UpdatePasswordRepository(
+		token string, userDomain model.UserDomainInterface,
+	) *rest_err.RestErr
 }

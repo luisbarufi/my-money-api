@@ -56,7 +56,7 @@ func (ur *userRepository) UpdateUserRepository(
 		return nil
 	}
 
-	statement, err := ur.db.Conn.Prepare(query)
+	statement, err := ur.db.Prepare(query)
 	if err != nil {
 		logger.Error("Error preparing update user query",
 			err,

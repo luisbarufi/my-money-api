@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -9,29 +10,31 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
 	"github.com/luisbarufi/my-money-api/src/configuration/env"
-	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 )
 
 var (
-	CONN_STR   = "CONN_STR"
-	SOURCE_URL = "SOURCE_URL"
+	SOURCE_URL  = "SOURCE_URL"
+	DB_HOST     = "DB_HOST"
+	DB_PORT     = "DB_PORT"
+	DB_USER     = "DB_USER"
+	DB_PASSWORD = "DB_PASSWORD"
+	DB_NAME     = "DB_NAME"
 )
 
-type Database struct {
-	Conn *sql.DB
-}
-
-func NewPostgresConnection() (*Database, error) {
-	connStr := env.GetEnv(CONN_STR)
+func NewPostgresConnection() (*sql.DB, error) {
+	connStr := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		env.GetEnv(DB_HOST),
+		env.GetEnv(DB_PORT),
+		env.GetEnv(DB_USER),
+		env.GetEnv(DB_PASSWORD),
+		env.GetEnv(DB_NAME),
+	)
 
 	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		return nil, err
-	}
 
-	err = db.Ping()
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
@@ -54,16 +57,6 @@ func NewPostgresConnection() (*Database, error) {
 		return nil, err
 	}
 
-	logger.Info("PostgreSQL connection established successfully!")
-	logger.Info("Migrations successfully implemented!")
-
-	return &Database{Conn: db}, nil
-}
-
-func (db *Database) Close() {
-	if err := db.Conn.Close(); err != nil {
-		logger.Error("Error closing database connection!", err)
-	} else {
-		logger.Info("Database connection closed!")
-	}
+	err = db.Ping()
+	return db, err
 }
