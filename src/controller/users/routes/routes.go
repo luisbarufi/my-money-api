@@ -9,31 +9,34 @@ import (
 func InitRoutes(r *gin.RouterGroup,
 	userController controller.UserControllerInterface,
 ) {
-	r.GET(
-		"/users/:id",
-		model.VerifyTokenMiddleware,
-		userController.FindUserByIDController,
-	)
+	usersGroup := r.Group("/users")
+	{
+		usersGroup.GET(
+			"/:id",
+			model.VerifyTokenMiddleware,
+			userController.FindUserByIDController,
+		)
 
-	r.GET(
-		"/users/email/:email",
-		model.VerifyTokenMiddleware,
-		userController.FindUserByEmailController,
-	)
+		usersGroup.GET(
+			"/email/:email",
+			model.VerifyTokenMiddleware,
+			userController.FindUserByEmailController,
+		)
 
-	r.PUT(
-		"/users/:id",
-		model.VerifyTokenMiddleware,
-		userController.UpdateUserController,
-	)
+		usersGroup.PUT(
+			"/:id",
+			model.VerifyTokenMiddleware,
+			userController.UpdateUserController,
+		)
 
-	r.DELETE(
-		"/users/:id",
-		model.VerifyTokenMiddleware,
-		userController.DeleteUserController,
-	)
+		usersGroup.DELETE(
+			"/:id",
+			model.VerifyTokenMiddleware,
+			userController.DeleteUserController,
+		)
 
-	r.POST("/users", userController.CreateUserController)
+		usersGroup.POST("/", userController.CreateUserController)
+	}
 
 	r.POST("/login", userController.LoginUserController)
 
