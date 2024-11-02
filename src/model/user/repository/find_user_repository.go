@@ -5,9 +5,9 @@ import (
 
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
-	"github.com/luisbarufi/my-money-api/src/model"
-	"github.com/luisbarufi/my-money-api/src/model/repository/entity"
-	"github.com/luisbarufi/my-money-api/src/model/repository/entity/converter"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
+	"github.com/luisbarufi/my-money-api/src/model/user/repository/entity"
+	"github.com/luisbarufi/my-money-api/src/model/user/repository/entity/converter"
 	"go.uber.org/zap"
 )
 

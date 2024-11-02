@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/luisbarufi/my-money-api/src/model/service"
+	"github.com/luisbarufi/my-money-api/src/model/user/service"
 )
 
 func NewUserControllerInterface(

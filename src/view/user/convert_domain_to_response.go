@@ -1,8 +1,8 @@
 package view
 
 import (
-	"github.com/luisbarufi/my-money-api/src/controller/model/response"
-	"github.com/luisbarufi/my-money-api/src/model"
+	"github.com/luisbarufi/my-money-api/src/controller/user/model/response"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
 )
 
 func ConvertDomainToResponse(

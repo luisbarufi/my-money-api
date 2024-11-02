@@ -7,9 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
-	"github.com/luisbarufi/my-money-api/src/controller/model/request"
-	"github.com/luisbarufi/my-money-api/src/model"
-	"github.com/luisbarufi/my-money-api/src/view"
+	"github.com/luisbarufi/my-money-api/src/controller/user/model/request"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
+	view "github.com/luisbarufi/my-money-api/src/view/user"
 	"go.uber.org/zap"
 )
 

@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
-	"github.com/luisbarufi/my-money-api/src/model"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
 	"go.uber.org/zap"
 )
 

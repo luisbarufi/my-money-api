@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"github.com/luisbarufi/my-money-api/src/model"
-	"github.com/luisbarufi/my-money-api/src/model/repository/entity"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
+	"github.com/luisbarufi/my-money-api/src/model/user/repository/entity"
 )
 
 func ConvertEntityToDomain(entity entity.UserEntity) model.UserDomainInterface {

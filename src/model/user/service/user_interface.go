@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
-	"github.com/luisbarufi/my-money-api/src/model"
-	"github.com/luisbarufi/my-money-api/src/model/repository"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
+	"github.com/luisbarufi/my-money-api/src/model/user/repository"
 )
 
 func NewUserDomainService(

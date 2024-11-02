@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/luisbarufi/my-money-api/src/controller"
-	"github.com/luisbarufi/my-money-api/src/model"
+	controller "github.com/luisbarufi/my-money-api/src/controller/user"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
 )
 
 func InitRoutes(r *gin.RouterGroup, userController controller.UserControllerInterface) {

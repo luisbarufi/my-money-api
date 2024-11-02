@@ -7,10 +7,10 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/luisbarufi/my-money-api/src/configuration/database/postgres"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
-	"github.com/luisbarufi/my-money-api/src/controller"
-	"github.com/luisbarufi/my-money-api/src/controller/routes"
-	"github.com/luisbarufi/my-money-api/src/model/repository"
-	"github.com/luisbarufi/my-money-api/src/model/service"
+	controller "github.com/luisbarufi/my-money-api/src/controller/user"
+	"github.com/luisbarufi/my-money-api/src/controller/user/routes"
+	"github.com/luisbarufi/my-money-api/src/model/user/repository"
+	"github.com/luisbarufi/my-money-api/src/model/user/service"
 )
 
 func main() {

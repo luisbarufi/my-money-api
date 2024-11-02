@@ -4,7 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
-	"github.com/luisbarufi/my-money-api/src/model"
+	model "github.com/luisbarufi/my-money-api/src/model/user"
 )
 
 func NewUserRepository(dataBase *sql.DB) UserRepository {

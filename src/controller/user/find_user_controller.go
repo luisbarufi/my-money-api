@@ -9,7 +9,7 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
 	"github.com/luisbarufi/my-money-api/src/configuration/validation"
-	"github.com/luisbarufi/my-money-api/src/view"
+	view "github.com/luisbarufi/my-money-api/src/view/user"
 	"go.uber.org/zap"
 )
 
