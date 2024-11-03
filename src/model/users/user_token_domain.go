@@ -46,8 +46,8 @@ func (ud *userDomain) GenerateResetToken() (string, *rest_err.RestErr) {
 	secretKey := env.GetEnv(SECRET_KEY)
 
 	claims := jwt.MapClaims{
-		"user_id": ud.id,
-		"exp":     time.Now().Add(15 * time.Minute).Unix(),
+		"id":  ud.id,
+		"exp": time.Now().Add(15 * time.Minute).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

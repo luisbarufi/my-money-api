@@ -1,12 +1,10 @@
 package repository
 
 import (
-	"fmt"
-
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/luisbarufi/my-money-api/src/configuration/env"
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
+	"github.com/luisbarufi/my-money-api/src/configuration/utils"
 	model "github.com/luisbarufi/my-money-api/src/model/users"
 	"go.uber.org/zap"
 )
@@ -21,28 +19,28 @@ func (ur *userRepository) UpdatePasswordRepository(
 
 	secretKey := env.GetEnv("SECRET_KEY")
 
-	claims, err := parseToken(token, secretKey)
+	claims, rest_err := utils.ParseToken(token, secretKey)
 
-	if err != nil {
+	if rest_err != nil {
 		logger.Error(
 			"Error trying to validate token",
-			err,
+			rest_err,
 			zap.String("journey", "updatePassword"),
 		)
 
-		return rest_err.NewInternalServerError(err.Error())
+		return rest_err
 	}
 
-	userID, err := extractUserID(claims)
+	userID, rest_err := utils.ExtractUserID(claims)
 
-	if err != nil {
+	if rest_err != nil {
 		logger.Error(
 			"Error trying to extract user id from token",
-			err,
+			rest_err,
 			zap.String("journey", "updatePassword"),
 		)
 
-		return rest_err.NewInternalServerError(err.Error())
+		return rest_err
 	}
 
 	query := "UPDATE users SET password = $1 WHERE id = $2"
@@ -56,7 +54,7 @@ func (ur *userRepository) UpdatePasswordRepository(
 			zap.String("journey", "updatePassword"),
 		)
 
-		return rest_err.NewInternalServerError(err.Error())
+		return rest_err
 	}
 
 	defer statement.Close()
@@ -68,7 +66,7 @@ func (ur *userRepository) UpdatePasswordRepository(
 			zap.String("journey", "updatePassword"),
 		)
 
-		return rest_err.NewInternalServerError(err.Error())
+		return rest_err
 	}
 
 	logger.Info(
@@ -77,44 +75,4 @@ func (ur *userRepository) UpdatePasswordRepository(
 	)
 
 	return nil
-}
-
-func parseToken(tokenString, secretKey string) (jwt.MapClaims, error) {
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signature method: %v", token.Header["alg"])
-		}
-
-		return []byte(secretKey), nil
-	})
-
-	if err != nil {
-		logger.Error(
-			"Error trying to parse token",
-			err,
-			zap.String("journey", "updatePassword"),
-		)
-
-		return nil, err
-	}
-
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		return claims, nil
-	}
-
-	logger.Error(
-		"Error trying to validate token",
-		err,
-		zap.String("journey", "updatePassword"),
-	)
-
-	return nil, err
-}
-
-func extractUserID(claims jwt.MapClaims) (uint64, error) {
-	if userID, ok := claims["user_id"].(float64); ok {
-		return uint64(userID), nil
-	}
-
-	return 0, rest_err.NewBadRequestError("User ID not found in token")
 }
