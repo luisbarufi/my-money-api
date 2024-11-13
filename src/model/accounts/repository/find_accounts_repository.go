@@ -55,13 +55,5 @@ func (ar *accountRepository) FindAccountsByUserIDRepository(userID uint64) (
 		accounts = append(accounts, account)
 	}
 
-	// Cria um slice para armazenar as conversões para o tipo de domínio
-	var domains []model.AccountDomainInterface
-	for _, account := range accounts {
-		// Converte cada AccountEntity para o tipo de domínio
-		domain := converter.ConvertEntityToDomain(account)
-		domains = append(domains, domain)
-	}
-
-	return domains, nil
+	return converter.ConvertEntitiesToDomains(accounts), nil
 }
