@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:latest
-    restart: unless-stopped
     ports:
       - ${DB_PORT:-6432}:5432
     environment:
@@ -13,6 +12,8 @@ services:
 
   mailhog:
     image: mailhog/mailhog
+    depends_on:
+      - db    
     ports:
       - "1025:1025"
       - "8025:8025"

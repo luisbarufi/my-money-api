@@ -21,4 +21,8 @@ type AccountRepository interface {
 	CreateAccountRepository(
 		accountDomain model.AccountDomainInterface,
 	) (model.AccountDomainInterface, *rest_err.RestErr)
+
+	FindAccountsByUserIDRepository(
+		userID uint64,
+	) ([]model.AccountDomainInterface, *rest_err.RestErr)
 }

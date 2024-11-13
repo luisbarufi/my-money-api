@@ -42,6 +42,8 @@ func main() {
 	accountService := accountsService.NewAccountDomainService(accountRepo)
 	account := accountController.NewAccountControllerInterface(accountService)
 
+	// Disable log's color
+	gin.DisableConsoleColor()
 	router := gin.Default()
 	userRoutes.InitRoutes(&router.RouterGroup, user)
 	accountRoutes.InitRoutes(&router.RouterGroup, account)

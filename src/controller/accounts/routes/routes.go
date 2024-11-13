@@ -17,5 +17,11 @@ func InitRoutes(
 			userModel.VerifyTokenMiddleware,
 			accountController.CreateAccountController,
 		)
+
+		accountsGroup.GET(
+			"/user",
+			userModel.VerifyTokenMiddleware,
+			accountController.FindAccountsByUserIDController,
+		)
 	}
 }

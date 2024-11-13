@@ -20,4 +20,8 @@ type AccountDomainService interface {
 	CreateAccountService(
 		model.AccountDomainInterface,
 	) (model.AccountDomainInterface, *rest_err.RestErr)
+
+	FindAccountsByUserIDService(
+		userID uint64,
+	) ([]model.AccountDomainInterface, *rest_err.RestErr)
 }
