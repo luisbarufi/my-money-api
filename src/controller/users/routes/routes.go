@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	controller "github.com/luisbarufi/my-money-api/src/controller/users"
-	model "github.com/luisbarufi/my-money-api/src/model/users"
+	"github.com/luisbarufi/my-money-api/src/middlewares"
 )
 
 func InitRoutes(r *gin.RouterGroup,
@@ -13,25 +13,25 @@ func InitRoutes(r *gin.RouterGroup,
 	{
 		usersGroup.GET(
 			"/:id",
-			model.VerifyTokenMiddleware,
+			middlewares.VerifyTokenMiddleware,
 			userController.FindUserByIDController,
 		)
 
 		usersGroup.GET(
 			"/email/:email",
-			model.VerifyTokenMiddleware,
+			middlewares.VerifyTokenMiddleware,
 			userController.FindUserByEmailController,
 		)
 
 		usersGroup.PUT(
 			"/:id",
-			model.VerifyTokenMiddleware,
+			middlewares.VerifyTokenMiddleware,
 			userController.UpdateUserController,
 		)
 
 		usersGroup.DELETE(
 			"/:id",
-			model.VerifyTokenMiddleware,
+			middlewares.VerifyTokenMiddleware,
 			userController.DeleteUserController,
 		)
 
