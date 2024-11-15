@@ -29,4 +29,6 @@ type AccountRepository interface {
 	UpdateAccountRepository(
 		accountId uint64, accountDomain model.AccountDomainInterface,
 	) *rest_err.RestErr
+
+	DeleteAccountRepository(accountId uint64) *rest_err.RestErr
 }

@@ -26,4 +26,6 @@ type AccountDomainService interface {
 	) ([]model.AccountDomainInterface, *rest_err.RestErr)
 
 	UpdateAccountService(uint64, model.AccountDomainInterface) *rest_err.RestErr
+
+	DeleteAccountService(uint64) *rest_err.RestErr
 }

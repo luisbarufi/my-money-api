@@ -29,5 +29,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			accountController.UpdateAccountController,
 		)
+
+		accountsGroup.DELETE(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			accountController.DeleteAccountController,
+		)
 	}
 }
