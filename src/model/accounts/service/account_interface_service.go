@@ -24,4 +24,6 @@ type AccountDomainService interface {
 	FindAccountsByUserIDService(
 		userID uint64,
 	) ([]model.AccountDomainInterface, *rest_err.RestErr)
+
+	UpdateAccountService(uint64, model.AccountDomainInterface) *rest_err.RestErr
 }

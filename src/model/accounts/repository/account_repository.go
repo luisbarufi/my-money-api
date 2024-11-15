@@ -25,4 +25,8 @@ type AccountRepository interface {
 	FindAccountsByUserIDRepository(
 		userID uint64,
 	) ([]model.AccountDomainInterface, *rest_err.RestErr)
+
+	UpdateAccountRepository(
+		accountId uint64, accountDomain model.AccountDomainInterface,
+	) *rest_err.RestErr
 }

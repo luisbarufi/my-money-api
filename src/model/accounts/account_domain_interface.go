@@ -39,3 +39,9 @@ func NewAccountDomain(
 		balance:     balance,
 	}
 }
+
+func NewAccountUpdateDomain(accountName string) AccountDomainInterface {
+	return &accountDomain{
+		accountName: accountName,
+	}
+}

@@ -23,5 +23,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			accountController.FindAccountsByUserIDController,
 		)
+
+		accountsGroup.PUT(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			accountController.UpdateAccountController,
+		)
 	}
 }
