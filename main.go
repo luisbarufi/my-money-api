@@ -9,10 +9,14 @@ import (
 	"github.com/luisbarufi/my-money-api/src/configuration/logger"
 	accountController "github.com/luisbarufi/my-money-api/src/controller/accounts"
 	accountRoutes "github.com/luisbarufi/my-money-api/src/controller/accounts/routes"
+	categoryController "github.com/luisbarufi/my-money-api/src/controller/categories"
+	categoryRoutes "github.com/luisbarufi/my-money-api/src/controller/categories/routes"
 	userController "github.com/luisbarufi/my-money-api/src/controller/users"
 	userRoutes "github.com/luisbarufi/my-money-api/src/controller/users/routes"
 	accountRepository "github.com/luisbarufi/my-money-api/src/model/accounts/repository"
 	accountsService "github.com/luisbarufi/my-money-api/src/model/accounts/service"
+	categoryRepository "github.com/luisbarufi/my-money-api/src/model/categories/repository"
+	categoryService "github.com/luisbarufi/my-money-api/src/model/categories/service"
 	userRepository "github.com/luisbarufi/my-money-api/src/model/users/repository"
 	userService "github.com/luisbarufi/my-money-api/src/model/users/service"
 )
@@ -42,11 +46,16 @@ func main() {
 	accountService := accountsService.NewAccountDomainService(accountRepo)
 	account := accountController.NewAccountControllerInterface(accountService)
 
+	categoryRepo := categoryRepository.NewCategoryRepository(database)
+	categoryService := categoryService.NewCategoryDomainService(categoryRepo)
+	category := categoryController.NewCategoryControllerInterface(categoryService)
+
 	// Disable log's color
 	gin.DisableConsoleColor()
 	router := gin.Default()
 	userRoutes.InitRoutes(&router.RouterGroup, user)
 	accountRoutes.InitRoutes(&router.RouterGroup, account)
+	categoryRoutes.InitRoutes(&router.RouterGroup, category)
 
 	if err := router.Run(":3333"); err != nil {
 		log.Fatal(err)
