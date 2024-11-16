@@ -1,6 +1,9 @@
 package controller
 
-import "github.com/luisbarufi/my-money-api/src/model/categories/service"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/luisbarufi/my-money-api/src/model/categories/service"
+)
 
 func NewCategoryControllerInterface(
 	categoryServiceInterface service.CategoryDomainService,
@@ -11,6 +14,7 @@ func NewCategoryControllerInterface(
 }
 
 type CategoryControllerInterface interface {
+	CreateCategoryController(c *gin.Context)
 }
 
 type categoryControllerInterface struct {
