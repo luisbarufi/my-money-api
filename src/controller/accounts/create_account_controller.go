@@ -15,6 +15,10 @@ import (
 	"go.uber.org/zap"
 )
 
+var (
+	JWT_SECRET_KEY = "JWT_SECRET_KEY"
+)
+
 func (ac *accountControllerInterface) CreateAccountController(c *gin.Context) {
 	logger.Info("Init CreateAccountController",
 		zap.String("journey", "createAccount"),
@@ -24,7 +28,7 @@ func (ac *accountControllerInterface) CreateAccountController(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&accountRequest); err != nil {
 		logger.Error(
-			"Error trying to validate user info",
+			"Error trying to validate account info",
 			err,
 			zap.String("journey", "createAccount"),
 		)
@@ -36,7 +40,7 @@ func (ac *accountControllerInterface) CreateAccountController(c *gin.Context) {
 		return
 	}
 
-	secretKey := env.GetEnv("JWT_SECRET_KEY")
+	secretKey := env.GetEnv(JWT_SECRET_KEY)
 
 	token := strings.TrimPrefix(c.GetHeader("Authorization"), "Bearer ")
 
