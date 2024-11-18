@@ -10,15 +10,14 @@ import (
 func (ad *accountDomainService) FindAccountsByUserIDService(
 	userID uint64,
 ) ([]model.AccountDomainInterface, *rest_err.RestErr) {
-
 	logger.Info(
 		"Init FindAccountsByUserIDService",
-		zap.String("journey", "findAccountsByuserID"),
+		zap.String("journey", "findAccountsByUserID"),
 	)
 
 	logger.Info(
 		"FindAccountsByUserIDService executed successfully",
-		zap.String("journey", "findAccountsByuserID"),
+		zap.String("journey", "findAccountsByUserID"),
 	)
 
 	return ad.accountRepository.FindAccountsByUserIDRepository(userID)

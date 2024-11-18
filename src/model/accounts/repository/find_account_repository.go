@@ -14,7 +14,7 @@ func (ar *accountRepository) FindAccountsByUserIDRepository(userID uint64) (
 ) {
 	logger.Info(
 		"Init FindAccountsByUserIDRepository",
-		zap.String("journey", "findAccountsByuserID"),
+		zap.String("journey", "findAccountsByUserID"),
 	)
 
 	row, err := ar.db.Query("SELECT * FROM accounts WHERE user_id = $1", userID)
