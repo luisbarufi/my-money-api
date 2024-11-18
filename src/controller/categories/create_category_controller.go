@@ -15,10 +15,6 @@ import (
 	"go.uber.org/zap"
 )
 
-var (
-	JWT_SECRET_KEY = "JWT_SECRET_KEY"
-)
-
 func (cc *categoryControllerInterface) CreateCategoryController(c *gin.Context) {
 	logger.Info("Init CreateCategoryController",
 		zap.String("journey", "createCategory"),
@@ -40,7 +36,7 @@ func (cc *categoryControllerInterface) CreateCategoryController(c *gin.Context) 
 		return
 	}
 
-	secretKey := env.GetEnv(JWT_SECRET_KEY)
+	secretKey := env.GetEnv("JWT_SECRET_KEY")
 
 	token := strings.TrimPrefix(c.GetHeader("Authorization"), "Bearer ")
 

@@ -16,3 +16,19 @@ func ConvertDomainToResponse(
 		UpdatedAt:    categoryDomain.GetUpdatedAt(),
 	}
 }
+
+func ConvertDomainsToResponses(
+	categoriesDomain []model.CategoryDomainInterface,
+) []response.CategoryResponse {
+	var responses []response.CategoryResponse
+	for _, categoryDomain := range categoriesDomain {
+		responses = append(responses, response.CategoryResponse{
+			ID:           categoryDomain.GetID(),
+			UserID:       categoryDomain.GetUserID(),
+			CategoryName: categoryDomain.GetCategoryName(),
+			CreatedAt:    categoryDomain.GetCreatedAt(),
+			UpdatedAt:    categoryDomain.GetUpdatedAt(),
+		})
+	}
+	return responses
+}

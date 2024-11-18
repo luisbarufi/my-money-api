@@ -18,5 +18,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			categoryController.CreateCategoryController,
 		)
+
+		categoriesGroup.GET(
+			"/user",
+			middlewares.VerifyTokenMiddleware,
+			categoryController.FindCategoriesByUserIDController,
+		)
 	}
 }

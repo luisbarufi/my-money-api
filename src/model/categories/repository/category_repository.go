@@ -21,4 +21,8 @@ type CategoryRepository interface {
 	CreateCategoryRepository(
 		categoryDomain model.CategoryDomainInterface,
 	) (model.CategoryDomainInterface, *rest_err.RestErr)
+
+	FindCategoriesByUserIDRepository(
+		userID uint64,
+	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
 }

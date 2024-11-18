@@ -20,4 +20,8 @@ type CategoryDomainService interface {
 	CreateCategoryService(
 		model.CategoryDomainInterface,
 	) (model.CategoryDomainInterface, *rest_err.RestErr)
+
+	FindCategoriesByUserIDService(
+		userID uint64,
+	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
 }
