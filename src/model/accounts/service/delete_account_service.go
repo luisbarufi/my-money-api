@@ -20,18 +20,18 @@ func (ad *accountDomainService) DeleteAccountService(
 
 	if err != nil {
 		logger.Error(
-			"Error trying to call repository",
+			"Error trying to call DeleteAccountRepository",
 			err,
-			zap.String("journey", "deleteUser"),
+			zap.String("journey", "deleteAccount"),
 		)
 
 		return err
 	}
 
 	logger.Info(
-		"DeleteUserService executed successfully",
+		"DeleteAccountRepository executed successfully",
 		zap.String("accountId", fmt.Sprintf("%d", accountId)),
-		zap.String("journey", "deleteUser"),
+		zap.String("journey", "deleteAccount"),
 	)
 
 	return nil

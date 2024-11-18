@@ -19,8 +19,8 @@ func (ad *accountDomainService) UpdateAccountService(
 
 	if err != nil {
 		logger.Error(
-			"Error trying to call UpdateUserRepository",
-			err, zap.String("journey", "updateUser"),
+			"Error trying to call UpdateAccountRepository",
+			err, zap.String("journey", "updateAccount"),
 		)
 
 		return err

@@ -15,7 +15,7 @@ import (
 func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Context) {
 	logger.Info(
 		"Init FindAccountsByUserIDController",
-		zap.String("journey", "findAccountsByuserID"),
+		zap.String("journey", "findAccountsByUserID"),
 	)
 
 	secretKey := env.GetEnv("JWT_SECRET_KEY")
@@ -27,7 +27,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 		logger.Error(
 			"Error when trying to parse to token",
 			err,
-			zap.String("journey", "findAccountsByuserID"),
+			zap.String("journey", "findAccountsByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -41,7 +41,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 		logger.Error(
 			"Error while trying to extract token ID",
 			err,
-			zap.String("journey", "findAccountsByuserID"),
+			zap.String("journey", "findAccountsByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -54,7 +54,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 	if restErr != nil {
 		logger.Error("Error calling FindAccountsByUserIDService",
 			restErr,
-			zap.String("journey", "findAccountsByuserID"),
+			zap.String("journey", "findAccountsByUserID"),
 		)
 
 		c.JSON(restErr.Code, restErr)
@@ -64,7 +64,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 
 	logger.Info(
 		"FindAccountsByUserIDController executed successfully",
-		zap.String("journey", "findAccountsByuserID"),
+		zap.String("journey", "findAccountsByUserID"),
 	)
 
 	c.JSON(http.StatusOK, view.ConvertDomainsToResponses(accountDomain))
