@@ -24,3 +24,9 @@ func NewCategoryDomain(
 		categoryName: categoryName,
 	}
 }
+
+func NewUpdateCategoryDomain(categoryName string) CategoryDomainInterface {
+	return &categoryDomain{
+		categoryName: categoryName,
+	}
+}

@@ -25,4 +25,8 @@ type CategoryRepository interface {
 	FindCategoriesByUserIDRepository(
 		userID uint64,
 	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
+
+	UpdateCategoryRepository(
+		categoryId uint64, categoryDomain model.CategoryDomainInterface,
+	) *rest_err.RestErr
 }

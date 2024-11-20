@@ -24,4 +24,6 @@ type CategoryDomainService interface {
 	FindCategoriesByUserIDService(
 		userID uint64,
 	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
+
+	UpdateCategoryService(uint64, model.CategoryDomainInterface) *rest_err.RestErr
 }

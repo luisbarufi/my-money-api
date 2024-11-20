@@ -24,5 +24,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			categoryController.FindCategoriesByUserIDController,
 		)
+
+		categoriesGroup.PUT(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			categoryController.UpdateCategoryController,
+		)
 	}
 }
