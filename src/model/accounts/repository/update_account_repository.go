@@ -46,7 +46,7 @@ func (ar *accountRepository) UpdateAccountRepository(
 			zap.String("journey", "updateAccount"),
 		)
 
-		return rest_err.NewInternalServerError("Error updating user")
+		return rest_err.NewInternalServerError("Error updating account")
 	}
 
 	logger.Info("UpdateAccountRepository successfully",

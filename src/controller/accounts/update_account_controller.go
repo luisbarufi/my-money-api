@@ -39,7 +39,7 @@ func (ac *accountControllerInterface) UpdateAccountController(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&accountRequest); err != nil {
 		logger.Error(
-			"Error trying to validate user info",
+			"Error trying to validate account info",
 			err,
 			zap.String("journey", "updateAccount"),
 		)
@@ -54,7 +54,7 @@ func (ac *accountControllerInterface) UpdateAccountController(c *gin.Context) {
 	domain := model.NewAccountUpdateDomain(accountRequest.AccountName)
 
 	if err := ac.accountService.UpdateAccountService(accountId, domain); err != nil {
-		logger.Error("Error calling UpdateUserService",
+		logger.Error("Error calling UpdateAccountService",
 			err,
 			zap.String("journey", "updateAccount"),
 		)
@@ -66,7 +66,7 @@ func (ac *accountControllerInterface) UpdateAccountController(c *gin.Context) {
 
 	logger.Info(
 		"UpdateAccountController executed successfully",
-		zap.String("userId", fmt.Sprintf("%d", accountId)),
+		zap.String("accountId", fmt.Sprintf("%d", accountId)),
 		zap.String("journey", "updateAccount"),
 	)
 
