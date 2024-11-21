@@ -29,7 +29,7 @@ func (cc *categoryControllerInterface) CreateCategoryController(c *gin.Context) 
 			zap.String("journey", "createCategory"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

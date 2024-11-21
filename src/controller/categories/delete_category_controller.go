@@ -26,7 +26,7 @@ func (cc *categoryControllerInterface) DeleteCategoryController(c *gin.Context) 
 			zap.String("journey", "deleteCategory"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
@@ -40,7 +40,7 @@ func (cc *categoryControllerInterface) DeleteCategoryController(c *gin.Context) 
 			zap.String("journey", "deleteCategory"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

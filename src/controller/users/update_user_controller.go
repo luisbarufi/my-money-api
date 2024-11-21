@@ -25,7 +25,7 @@ func (uc *userControllerInterface) UpdateUserController(c *gin.Context) {
 			zap.String("journey", "findUserByID"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
@@ -41,7 +41,7 @@ func (uc *userControllerInterface) UpdateUserController(c *gin.Context) {
 			zap.String("journey", "updateUser"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

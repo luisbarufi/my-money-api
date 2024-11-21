@@ -26,7 +26,7 @@ func (uc *userControllerInterface) UpdatePasswordController(c *gin.Context) {
 			zap.String("journey", "updatepassword"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

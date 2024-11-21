@@ -26,7 +26,7 @@ func (ac *accountControllerInterface) DeleteAccountController(c *gin.Context) {
 			zap.String("journey", "deleteAccount"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
@@ -40,7 +40,7 @@ func (ac *accountControllerInterface) DeleteAccountController(c *gin.Context) {
 			zap.String("journey", "deleteAccount"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

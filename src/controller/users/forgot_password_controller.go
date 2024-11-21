@@ -29,7 +29,7 @@ func (uc *userControllerInterface) ForgotPasswordController(c *gin.Context) {
 			zap.String("journey", "forgotPassword"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

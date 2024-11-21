@@ -28,7 +28,7 @@ func (ac *accountControllerInterface) UpdateAccountController(c *gin.Context) {
 			zap.String("journey", "updateAccount"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
@@ -44,7 +44,7 @@ func (ac *accountControllerInterface) UpdateAccountController(c *gin.Context) {
 			zap.String("journey", "updateAccount"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

@@ -33,7 +33,7 @@ func (ac *accountControllerInterface) CreateAccountController(c *gin.Context) {
 			zap.String("journey", "createAccount"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

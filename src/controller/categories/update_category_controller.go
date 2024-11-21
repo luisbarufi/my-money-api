@@ -28,7 +28,7 @@ func (cc *categoryControllerInterface) UpdateCategoryController(c *gin.Context) 
 			zap.String("journey", "updateCategory"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
@@ -44,7 +44,7 @@ func (cc *categoryControllerInterface) UpdateCategoryController(c *gin.Context) 
 			zap.String("journey", "updateCategory"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

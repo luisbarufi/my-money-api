@@ -25,7 +25,7 @@ func (uc *userControllerInterface) CreateUserController(c *gin.Context) {
 			zap.String("journey", "createUser"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 

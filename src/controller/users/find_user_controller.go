@@ -69,7 +69,7 @@ func (uc *userControllerInterface) FindUserByEmailController(c *gin.Context) {
 			zap.String("journey", "findUserByEmail"),
 		)
 
-		restErr := validation.ValidateUserError(err)
+		restErr := validation.ValidateError(err)
 
 		c.JSON(restErr.Code, restErr)
 
