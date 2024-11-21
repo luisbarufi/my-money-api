@@ -29,4 +29,6 @@ type CategoryRepository interface {
 	UpdateCategoryRepository(
 		categoryId uint64, categoryDomain model.CategoryDomainInterface,
 	) *rest_err.RestErr
+
+	DeleteCategoryRepository(categoryId uint64) *rest_err.RestErr
 }

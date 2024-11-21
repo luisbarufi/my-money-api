@@ -26,4 +26,6 @@ type CategoryDomainService interface {
 	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
 
 	UpdateCategoryService(uint64, model.CategoryDomainInterface) *rest_err.RestErr
+
+	DeleteCategoryService(uint64) *rest_err.RestErr
 }

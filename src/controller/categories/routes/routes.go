@@ -30,5 +30,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			categoryController.UpdateCategoryController,
 		)
+
+		categoriesGroup.DELETE(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			categoryController.DeleteCategoryController,
+		)
 	}
 }
