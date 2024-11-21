@@ -29,7 +29,7 @@ func (ad *accountDomainService) DeleteAccountService(
 	}
 
 	logger.Info(
-		"DeleteAccountRepository executed successfully",
+		"DeleteAccountService executed successfully",
 		zap.String("accountId", fmt.Sprintf("%d", accountId)),
 		zap.String("journey", "deleteAccount"),
 	)
