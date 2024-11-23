@@ -11,12 +11,16 @@ import (
 	accountRoutes "github.com/luisbarufi/my-money-api/src/controller/accounts/routes"
 	categoryController "github.com/luisbarufi/my-money-api/src/controller/categories"
 	categoryRoutes "github.com/luisbarufi/my-money-api/src/controller/categories/routes"
+	transactionController "github.com/luisbarufi/my-money-api/src/controller/transactions"
+	transactionRoutes "github.com/luisbarufi/my-money-api/src/controller/transactions/routes"
 	userController "github.com/luisbarufi/my-money-api/src/controller/users"
 	userRoutes "github.com/luisbarufi/my-money-api/src/controller/users/routes"
 	accountRepository "github.com/luisbarufi/my-money-api/src/model/accounts/repository"
 	accountsService "github.com/luisbarufi/my-money-api/src/model/accounts/service"
 	categoryRepository "github.com/luisbarufi/my-money-api/src/model/categories/repository"
 	categoryService "github.com/luisbarufi/my-money-api/src/model/categories/service"
+	transactionRepository "github.com/luisbarufi/my-money-api/src/model/transactions/repository"
+	transactionService "github.com/luisbarufi/my-money-api/src/model/transactions/service"
 	userRepository "github.com/luisbarufi/my-money-api/src/model/users/repository"
 	userService "github.com/luisbarufi/my-money-api/src/model/users/service"
 )
@@ -50,12 +54,17 @@ func main() {
 	categoryService := categoryService.NewCategoryDomainService(categoryRepo)
 	category := categoryController.NewCategoryControllerInterface(categoryService)
 
+	transactionRepo := transactionRepository.NewTransactionRepository(database)
+	transactionService := transactionService.NewTransactionDomainService(transactionRepo)
+	transaction := transactionController.NewTransactionControllerInterface(transactionService)
+
 	// Disable log's color
 	gin.DisableConsoleColor()
 	router := gin.Default()
 	userRoutes.InitRoutes(&router.RouterGroup, user)
 	accountRoutes.InitRoutes(&router.RouterGroup, account)
 	categoryRoutes.InitRoutes(&router.RouterGroup, category)
+	transactionRoutes.InitRoutes(&router.RouterGroup, transaction)
 
 	if err := router.Run(":3333"); err != nil {
 		log.Fatal(err)
