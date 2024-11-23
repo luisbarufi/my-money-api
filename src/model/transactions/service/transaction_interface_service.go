@@ -1,6 +1,10 @@
 package service
 
-import "github.com/luisbarufi/my-money-api/src/model/transactions/repository"
+import (
+	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
+	model "github.com/luisbarufi/my-money-api/src/model/transactions"
+	"github.com/luisbarufi/my-money-api/src/model/transactions/repository"
+)
 
 func NewTransactionDomainService(
 	transactionRepository repository.TransactionRepository,
@@ -13,4 +17,7 @@ type transactionDomainService struct {
 }
 
 type TransactionDomainService interface {
+	CreateTransactionService(
+		model.TransactionDomainInterface,
+	) (model.TransactionDomainInterface, *rest_err.RestErr)
 }

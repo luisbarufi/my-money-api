@@ -1,6 +1,9 @@
 package controller
 
-import "github.com/luisbarufi/my-money-api/src/model/transactions/service"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/luisbarufi/my-money-api/src/model/transactions/service"
+)
 
 func NewTransactionControllerInterface(
 	transactionServiceInterface service.TransactionDomainService,
@@ -11,6 +14,7 @@ func NewTransactionControllerInterface(
 }
 
 type TransactionControllerInterface interface {
+	CreateTransactionController(c *gin.Context)
 }
 
 type transactionControllerInterface struct {

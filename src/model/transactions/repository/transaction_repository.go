@@ -1,6 +1,11 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/luisbarufi/my-money-api/src/configuration/rest_err"
+	model "github.com/luisbarufi/my-money-api/src/model/transactions"
+)
 
 func NewTransactionRepository(dataBase *sql.DB) TransactionRepository {
 	return &transactionRepository{
@@ -13,4 +18,7 @@ type transactionRepository struct {
 }
 
 type TransactionRepository interface {
+	CreateTransactionRepository(
+		transactionDomain model.TransactionDomainInterface,
+	) (model.TransactionDomainInterface, *rest_err.RestErr)
 }
