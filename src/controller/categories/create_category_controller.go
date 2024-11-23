@@ -16,7 +16,8 @@ import (
 )
 
 func (cc *categoryControllerInterface) CreateCategoryController(c *gin.Context) {
-	logger.Info("Init CreateCategoryController",
+	logger.Info(
+		"Init CreateCategoryController",
 		zap.String("journey", "createCategory"),
 	)
 

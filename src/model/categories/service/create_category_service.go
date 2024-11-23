@@ -12,11 +12,14 @@ import (
 func (cd *categoryDomainService) CreateCategoryService(
 	categoryDomain model.CategoryDomainInterface,
 ) (model.CategoryDomainInterface, *rest_err.RestErr) {
-	logger.Info("Init CreateCategoryService",
+	logger.Info(
+		"Init CreateCategoryService",
 		zap.String("journey", "createCategory"),
 	)
 
-	categoryDomainRepository, err := cd.categoryRepository.CreateCategoryRepository(categoryDomain)
+	categoryDomainRepository, err := cd.categoryRepository.CreateCategoryRepository(
+		categoryDomain,
+	)
 
 	if err != nil {
 		logger.Error("Error trying to call CreateCategoryRepository",

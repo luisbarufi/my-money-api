@@ -14,7 +14,8 @@ import (
 func (cr *categoryRepository) CreateCategoryRepository(
 	categoryDomain model.CategoryDomainInterface,
 ) (model.CategoryDomainInterface, *rest_err.RestErr) {
-	logger.Info("Init CreateCategoryRepository",
+	logger.Info(
+		"Init CreateCategoryRepository",
 		zap.String("journey", "createCategory"),
 	)
 
@@ -64,7 +65,7 @@ func (cr *categoryRepository) CreateCategoryRepository(
 
 	logger.Info(
 		"CreateAccountRepository executed successfully",
-		zap.String("userId", fmt.Sprintf("%d", category.ID)),
+		zap.String("categoryID", fmt.Sprintf("%d", category.ID)),
 		zap.String("journey", "createAccount"),
 	)
 
