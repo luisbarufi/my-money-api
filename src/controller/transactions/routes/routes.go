@@ -18,5 +18,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			transactionController.CreateTransactionController,
 		)
+
+		transactionGroup.GET(
+			"/user",
+			middlewares.VerifyTokenMiddleware,
+			transactionController.FindTrasactionsByUserIDController,
+		)
 	}
 }

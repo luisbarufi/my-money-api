@@ -21,4 +21,8 @@ type TransactionRepository interface {
 	CreateTransactionRepository(
 		transactionDomain model.TransactionDomainInterface,
 	) (model.TransactionDomainInterface, *rest_err.RestErr)
+
+	FindTransactionsByUserIDRepository(
+		userID uint64,
+	) ([]model.TransactionDomainInterface, *rest_err.RestErr)
 }

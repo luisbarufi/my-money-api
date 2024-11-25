@@ -20,4 +20,8 @@ type TransactionDomainService interface {
 	CreateTransactionService(
 		model.TransactionDomainInterface,
 	) (model.TransactionDomainInterface, *rest_err.RestErr)
+
+	FindTransactionsByUserIDService(
+		userID uint64,
+	) ([]model.TransactionDomainInterface, *rest_err.RestErr)
 }

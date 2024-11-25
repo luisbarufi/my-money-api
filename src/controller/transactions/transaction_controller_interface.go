@@ -15,6 +15,7 @@ func NewTransactionControllerInterface(
 
 type TransactionControllerInterface interface {
 	CreateTransactionController(c *gin.Context)
+	FindTrasactionsByUserIDController(c *gin.Context)
 }
 
 type transactionControllerInterface struct {
