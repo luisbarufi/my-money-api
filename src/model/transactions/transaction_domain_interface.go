@@ -40,3 +40,19 @@ func NewTrasactionDomain(
 		transactionType: transactionType,
 	}
 }
+
+func NewUpdateTransactionDomain(
+	accountID uint64,
+	categoryID uint64,
+	amount float64,
+	description string,
+	transactionType string,
+) TransactionDomainInterface {
+	return &transactionDomain{
+		accountID:       accountID,
+		categoryID:      categoryID,
+		amount:          amount,
+		description:     description,
+		transactionType: transactionType,
+	}
+}

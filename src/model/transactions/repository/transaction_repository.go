@@ -25,4 +25,8 @@ type TransactionRepository interface {
 	FindTransactionsByUserIDRepository(
 		userID uint64,
 	) ([]model.TransactionDomainInterface, *rest_err.RestErr)
+
+	UpdateTransactionRepository(
+		transactionID uint64, transactionDomain model.TransactionDomainInterface,
+	) *rest_err.RestErr
 }

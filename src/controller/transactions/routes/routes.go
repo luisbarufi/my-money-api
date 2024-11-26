@@ -24,5 +24,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			transactionController.FindTrasactionsByUserIDController,
 		)
+
+		transactionGroup.PUT(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			transactionController.UpdateTransactionController,
+		)
 	}
 }

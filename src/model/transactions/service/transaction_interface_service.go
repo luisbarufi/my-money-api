@@ -24,4 +24,8 @@ type TransactionDomainService interface {
 	FindTransactionsByUserIDService(
 		userID uint64,
 	) ([]model.TransactionDomainInterface, *rest_err.RestErr)
+
+	UpdateTransactionService(
+		transactionID uint64, transactionDomain model.TransactionDomainInterface,
+	) *rest_err.RestErr
 }
