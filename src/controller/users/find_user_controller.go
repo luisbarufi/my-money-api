@@ -22,7 +22,8 @@ func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 	userId, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
 	if err != nil {
-		logger.Error("Error trying to validate user id, must be integer",
+		logger.Error(
+			"Error trying to validate user id, must be integer",
 			err,
 			zap.String("journey", "findUserByID"),
 		)
@@ -37,7 +38,8 @@ func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 	userDomain, restErr := uc.service.FindUserByIDService(userId)
 
 	if restErr != nil {
-		logger.Error("Error calling FindUserByIDService",
+		logger.Error(
+			"Error calling FindUserByIDService",
 			restErr,
 			zap.String("journey", "findUserByID"),
 		)
@@ -56,7 +58,8 @@ func (uc *userControllerInterface) FindUserByIDController(c *gin.Context) {
 }
 
 func (uc *userControllerInterface) FindUserByEmailController(c *gin.Context) {
-	logger.Info("Init FindUserByEmailController",
+	logger.Info(
+		"Init FindUserByEmailController",
 		zap.String("journey", "findUserByEmail"),
 	)
 

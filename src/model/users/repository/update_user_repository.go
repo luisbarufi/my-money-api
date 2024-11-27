@@ -88,7 +88,8 @@ func (ur *userRepository) UpdateUserRepository(
 		return rest_err.NewInternalServerError(err.Error())
 	}
 
-	logger.Info("UpdateUserRepository successfully",
+	logger.Info(
+		"UpdateUserRepository successfully",
 		zap.String("userId", fmt.Sprintf("%d", userId)),
 		zap.String("journey", "updatedUser"),
 	)

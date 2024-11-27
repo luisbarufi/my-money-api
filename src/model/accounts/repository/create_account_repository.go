@@ -15,7 +15,8 @@ func (ar *accountRepository) CreateAccountRepository(
 	accountDomain model.AccountDomainInterface) (
 	model.AccountDomainInterface, *rest_err.RestErr,
 ) {
-	logger.Info("Init CreateUserRepository",
+	logger.Info(
+		"Init CreateUserRepository",
 		zap.String("journey", "createAccount"),
 	)
 

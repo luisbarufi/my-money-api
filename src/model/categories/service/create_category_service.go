@@ -22,7 +22,8 @@ func (cd *categoryDomainService) CreateCategoryService(
 	)
 
 	if err != nil {
-		logger.Error("Error trying to call CreateCategoryRepository",
+		logger.Error(
+			"Error trying to call CreateCategoryRepository",
 			err,
 			zap.String("journey", "createCategory"),
 		)

@@ -22,7 +22,8 @@ func (td *transactionDomainService) CreateTransactionService(
 	)
 
 	if err != nil {
-		logger.Error("Error trying to call CreateTransactionRepository",
+		logger.Error(
+			"Error trying to call CreateTransactionRepository",
 			err,
 			zap.String("journey", "createTransaction"),
 		)

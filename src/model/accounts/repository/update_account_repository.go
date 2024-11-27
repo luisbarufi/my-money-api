@@ -49,7 +49,8 @@ func (ar *accountRepository) UpdateAccountRepository(
 		return rest_err.NewInternalServerError("Error updating account")
 	}
 
-	logger.Info("UpdateAccountRepository successfully",
+	logger.Info(
+		"UpdateAccountRepository successfully",
 		zap.String("accountId", fmt.Sprintf("%d", accountId)),
 		zap.String("journey", "updateAccount"),
 	)

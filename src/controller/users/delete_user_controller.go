@@ -43,7 +43,8 @@ func (uc *userControllerInterface) DeleteUserController(c *gin.Context) {
 		return
 	}
 
-	logger.Info("DeleteUserController executed successfully",
+	logger.Info(
+		"DeleteUserController executed successfully",
 		zap.String("userId", fmt.Sprintf("%d", userId)),
 		zap.String("journey", "deleteUser"),
 	)

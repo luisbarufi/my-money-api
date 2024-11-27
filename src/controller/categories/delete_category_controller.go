@@ -47,7 +47,8 @@ func (cc *categoryControllerInterface) DeleteCategoryController(c *gin.Context) 
 		return
 	}
 
-	logger.Info("DeleteCategoryController executed successfully",
+	logger.Info(
+		"DeleteCategoryController executed successfully",
 		zap.String("categoryId", fmt.Sprintf("%d", categoryId)),
 		zap.String("journey", "deleteCategory"),
 	)

@@ -20,7 +20,8 @@ var (
 )
 
 func (ac *accountControllerInterface) CreateAccountController(c *gin.Context) {
-	logger.Info("Init CreateAccountController",
+	logger.Info(
+		"Init CreateAccountController",
 		zap.String("journey", "createAccount"),
 	)
 

@@ -83,7 +83,8 @@ func (tr *transactionRepository) UpdateTransactionRepository(
 		return rest_err.NewInternalServerError(err.Error())
 	}
 
-	logger.Info("UpdateUserRepository successfully",
+	logger.Info(
+		"UpdateUserRepository successfully",
 		zap.String("transactionID", fmt.Sprintf("%d", transactionID)),
 		zap.String("journey", "updateTransaction"),
 	)

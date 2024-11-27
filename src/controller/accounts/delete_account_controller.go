@@ -47,7 +47,8 @@ func (ac *accountControllerInterface) DeleteAccountController(c *gin.Context) {
 		return
 	}
 
-	logger.Info("DeleteAccountController executed successfully",
+	logger.Info(
+		"DeleteAccountController executed successfully",
 		zap.String("accountId", fmt.Sprintf("%d", accountId)),
 		zap.String("journey", "deleteAccount"),
 	)

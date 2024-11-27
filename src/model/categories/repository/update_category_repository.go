@@ -49,7 +49,8 @@ func (cr *categoryRepository) UpdateCategoryRepository(
 		return rest_err.NewInternalServerError("Error updating category")
 	}
 
-	logger.Info("UpdateAccountRepository successfully",
+	logger.Info(
+		"UpdateAccountRepository successfully",
 		zap.String("categoryId", fmt.Sprintf("%d", categoryId)),
 		zap.String("journey", "updateCategory"),
 	)

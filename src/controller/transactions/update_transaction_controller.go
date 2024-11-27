@@ -61,7 +61,10 @@ func (tc *transactionControllerInterface) UpdateTransactionController(
 		transactionRequest.TransactionType,
 	)
 
-	if err := tc.transactionService.UpdateTransactionService(transactionId, domain); err != nil {
+	if err := tc.transactionService.UpdateTransactionService(
+		transactionId,
+		domain,
+	); err != nil {
 		logger.Error("Error calling UpdateTransactionService",
 			err,
 			zap.String("journey", "updateTransaction"),
