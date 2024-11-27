@@ -28,4 +28,6 @@ type TransactionDomainService interface {
 	UpdateTransactionService(
 		transactionID uint64, transactionDomain model.TransactionDomainInterface,
 	) *rest_err.RestErr
+
+	DeleteTransactionService(transactionID uint64) *rest_err.RestErr
 }

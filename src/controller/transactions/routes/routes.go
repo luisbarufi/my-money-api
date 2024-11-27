@@ -30,5 +30,11 @@ func InitRoutes(
 			middlewares.VerifyTokenMiddleware,
 			transactionController.UpdateTransactionController,
 		)
+
+		transactionGroup.DELETE(
+			"/:id",
+			middlewares.VerifyTokenMiddleware,
+			transactionController.DeleteTransactionController,
+		)
 	}
 }

@@ -29,4 +29,6 @@ type TransactionRepository interface {
 	UpdateTransactionRepository(
 		transactionID uint64, transactionDomain model.TransactionDomainInterface,
 	) *rest_err.RestErr
+
+	DeleteTransactionRepository(transactionID uint64) *rest_err.RestErr
 }
