@@ -19,7 +19,8 @@ func (ud *userDomainService) UpdateUserService(
 	if err != nil {
 		logger.Error(
 			"Error trying to call UpdateUserRepository",
-			err, zap.String("journey", "updateUser"),
+			err,
+			zap.String("journey", "updateUser"),
 		)
 
 		return err
