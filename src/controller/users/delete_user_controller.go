@@ -36,9 +36,7 @@ func (uc *userControllerInterface) DeleteUserController(c *gin.Context) {
 			zap.String("journey", "deleteUser"),
 		)
 
-		restErr := validation.ValidateError(err)
-
-		c.JSON(restErr.Code, restErr)
+		c.JSON(err.Code, err)
 
 		return
 	}

@@ -9,6 +9,14 @@ import (
 func (ur *userRepository) DeleteUserRepository(userId uint64) *rest_err.RestErr {
 	logger.Info("Init DeleteUserRepository", zap.String("journey", "deleteUser"))
 
+	user, _ := ur.FindUserByIDRepository(userId)
+
+	if user == nil {
+		logger.Info("User ID not found", zap.String("journey", "deleteUser"))
+
+		return rest_err.NewNotFoundError("User ID not found")
+	}
+
 	statement, err := ur.db.Prepare("DELETE FROM users WHERE id = $1")
 
 	if err != nil {
