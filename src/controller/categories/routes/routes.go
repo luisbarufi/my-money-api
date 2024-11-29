@@ -22,7 +22,7 @@ func InitRoutes(
 		categoriesGroup.GET(
 			"/user",
 			middlewares.VerifyTokenMiddleware,
-			categoryController.FindCategoriesByUserIDController,
+			categoryController.ListCategoriesByUserIDController,
 		)
 
 		categoriesGroup.PUT(

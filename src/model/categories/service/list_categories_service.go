@@ -7,18 +7,18 @@ import (
 	"go.uber.org/zap"
 )
 
-func (cd *categoryDomainService) FindCategoriesByUserIDService(
+func (cd *categoryDomainService) ListCategoriesByUserIDService(
 	userID uint64,
 ) ([]model.CategoryDomainInterface, *rest_err.RestErr) {
 	logger.Info(
-		"Init FindCategoriesByUserIDService",
-		zap.String("journey", "findCategoriesByUserID"),
+		"Init ListCategoriesByUserIDService",
+		zap.String("journey", "listCategoriesByUserID"),
 	)
 
 	logger.Info(
-		"FindCategoriesByUserIDService executed successfully",
-		zap.String("journey", "findCategoriesByUserID"),
+		"ListCategoriesByUserIDService executed successfully",
+		zap.String("journey", "listCategoriesByUserID"),
 	)
 
-	return cd.categoryRepository.FindCategoriesByUserIDRepository(userID)
+	return cd.categoryRepository.ListCategoriesByUserIDRepository(userID)
 }

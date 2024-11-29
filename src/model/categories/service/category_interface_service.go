@@ -21,7 +21,7 @@ type CategoryDomainService interface {
 		model.CategoryDomainInterface,
 	) (model.CategoryDomainInterface, *rest_err.RestErr)
 
-	FindCategoriesByUserIDService(
+	ListCategoriesByUserIDService(
 		userID uint64,
 	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
 

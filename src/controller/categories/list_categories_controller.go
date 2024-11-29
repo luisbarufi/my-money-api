@@ -12,12 +12,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (cc *categoryControllerInterface) FindCategoriesByUserIDController(
+func (cc *categoryControllerInterface) ListCategoriesByUserIDController(
 	c *gin.Context,
 ) {
 	logger.Info(
-		"Init FindCategoriesByUserIDController",
-		zap.String("journey", "findCategoriesByUserID"),
+		"Init ListCategoriesByUserIDController",
+		zap.String("journey", "listCategoriesByUserID"),
 	)
 
 	secretKey := env.GetEnv("JWT_SECRET_KEY")
@@ -29,7 +29,7 @@ func (cc *categoryControllerInterface) FindCategoriesByUserIDController(
 		logger.Error(
 			"Error when trying to parse to token",
 			err,
-			zap.String("journey", "findCategoriesByUserID"),
+			zap.String("journey", "listCategoriesByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -43,7 +43,7 @@ func (cc *categoryControllerInterface) FindCategoriesByUserIDController(
 		logger.Error(
 			"Error while trying to extract token ID",
 			err,
-			zap.String("journey", "findCategoriesByUserID"),
+			zap.String("journey", "listCategoriesByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -51,12 +51,12 @@ func (cc *categoryControllerInterface) FindCategoriesByUserIDController(
 		return
 	}
 
-	categoriesDomain, restErr := cc.categoryService.FindCategoriesByUserIDService(userID)
+	categoriesDomain, restErr := cc.categoryService.ListCategoriesByUserIDService(userID)
 
 	if restErr != nil {
-		logger.Error("Error calling FindAccountsByUserIDService",
+		logger.Error("Error calling ListCategoriesByUserIDService",
 			restErr,
-			zap.String("journey", "findCategoriesByUserID"),
+			zap.String("journey", "listCategoriesByUserID"),
 		)
 
 		c.JSON(restErr.Code, restErr)
@@ -65,7 +65,7 @@ func (cc *categoryControllerInterface) FindCategoriesByUserIDController(
 	}
 
 	logger.Info(
-		"FindAccountsByUserIDController executed successfully",
+		"ListCategoriesByUserIDController executed successfully",
 		zap.String("journey", "findAccountsByuserID"),
 	)
 

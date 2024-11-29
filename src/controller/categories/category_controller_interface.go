@@ -15,7 +15,7 @@ func NewCategoryControllerInterface(
 
 type CategoryControllerInterface interface {
 	CreateCategoryController(c *gin.Context)
-	FindCategoriesByUserIDController(c *gin.Context)
+	ListCategoriesByUserIDController(c *gin.Context)
 	UpdateCategoryController(c *gin.Context)
 	DeleteCategoryController(c *gin.Context)
 }

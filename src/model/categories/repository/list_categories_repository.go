@@ -9,12 +9,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (cr *categoryRepository) FindCategoriesByUserIDRepository(
+func (cr *categoryRepository) ListCategoriesByUserIDRepository(
 	userID uint64,
 ) ([]model.CategoryDomainInterface, *rest_err.RestErr) {
 	logger.Info(
-		"Init FindCategoriesByUserIDRepository",
-		zap.String("journey", "findCategoriesByUserID"),
+		"Init ListCategoriesByUserIDRepository",
+		zap.String("journey", "listCategoriesByUserID"),
 	)
 
 	row, err := cr.db.Query("SELECT * FROM categories WHERE user_id = $1", userID)
@@ -23,7 +23,7 @@ func (cr *categoryRepository) FindCategoriesByUserIDRepository(
 		logger.Error(
 			"Error executing find category query",
 			err,
-			zap.String("journey", "findCategoriesByUserID"),
+			zap.String("journey", "listCategoriesByUserID"),
 		)
 
 		return nil, rest_err.NewInternalServerError(err.Error())
@@ -45,7 +45,7 @@ func (cr *categoryRepository) FindCategoriesByUserIDRepository(
 			logger.Error(
 				"Error scanning insert category result",
 				err,
-				zap.String("journey", "findCategoriesByUserID"),
+				zap.String("journey", "listCategoriesByUserID"),
 			)
 
 			return nil, rest_err.NewInternalServerError(err.Error())

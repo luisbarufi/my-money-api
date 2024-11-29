@@ -22,7 +22,7 @@ type CategoryRepository interface {
 		categoryDomain model.CategoryDomainInterface,
 	) (model.CategoryDomainInterface, *rest_err.RestErr)
 
-	FindCategoriesByUserIDRepository(
+	ListCategoriesByUserIDRepository(
 		userID uint64,
 	) ([]model.CategoryDomainInterface, *rest_err.RestErr)
 
