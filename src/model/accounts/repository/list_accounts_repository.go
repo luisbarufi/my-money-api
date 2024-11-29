@@ -9,12 +9,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ar *accountRepository) FindAccountsByUserIDRepository(userID uint64) (
+func (ar *accountRepository) ListAccountsByUserIDRepository(userID uint64) (
 	[]model.AccountDomainInterface, *rest_err.RestErr,
 ) {
 	logger.Info(
-		"Init FindAccountsByUserIDRepository",
-		zap.String("journey", "findAccountsByUserID"),
+		"Init ListAccountsByUserIDRepository",
+		zap.String("journey", "listAccountsByUserID"),
 	)
 
 	row, err := ar.db.Query("SELECT * FROM accounts WHERE user_id = $1", userID)

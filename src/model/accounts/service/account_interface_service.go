@@ -21,7 +21,7 @@ type AccountDomainService interface {
 		model.AccountDomainInterface,
 	) (model.AccountDomainInterface, *rest_err.RestErr)
 
-	FindAccountsByUserIDService(
+	ListAccountsByUserIDService(
 		userID uint64,
 	) ([]model.AccountDomainInterface, *rest_err.RestErr)
 

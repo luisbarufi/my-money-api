@@ -7,18 +7,18 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ad *accountDomainService) FindAccountsByUserIDService(
+func (ad *accountDomainService) ListAccountsByUserIDService(
 	userID uint64,
 ) ([]model.AccountDomainInterface, *rest_err.RestErr) {
 	logger.Info(
-		"Init FindAccountsByUserIDService",
-		zap.String("journey", "findAccountsByUserID"),
+		"Init ListAccountsByUserIDService",
+		zap.String("journey", "listAccountsByUserID"),
 	)
 
 	logger.Info(
-		"FindAccountsByUserIDService executed successfully",
-		zap.String("journey", "findAccountsByUserID"),
+		"ListAccountsByUserIDService executed successfully",
+		zap.String("journey", "listAccountsByUserID"),
 	)
 
-	return ad.accountRepository.FindAccountsByUserIDRepository(userID)
+	return ad.accountRepository.ListAccountsByUserIDRepository(userID)
 }

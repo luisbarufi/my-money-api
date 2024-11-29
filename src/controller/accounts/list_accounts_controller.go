@@ -12,10 +12,10 @@ import (
 	"go.uber.org/zap"
 )
 
-func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Context) {
+func (ac *accountControllerInterface) ListAccountsByUserIDController(c *gin.Context) {
 	logger.Info(
-		"Init FindAccountsByUserIDController",
-		zap.String("journey", "findAccountsByUserID"),
+		"Init ListAccountsByUserIDController",
+		zap.String("journey", "listAccountsByUserID"),
 	)
 
 	secretKey := env.GetEnv("JWT_SECRET_KEY")
@@ -27,7 +27,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 		logger.Error(
 			"Error when trying to parse to token",
 			err,
-			zap.String("journey", "findAccountsByUserID"),
+			zap.String("journey", "listAccountsByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -41,7 +41,7 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 		logger.Error(
 			"Error while trying to extract token ID",
 			err,
-			zap.String("journey", "findAccountsByUserID"),
+			zap.String("journey", "listAccountsByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -49,12 +49,12 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 		return
 	}
 
-	accountDomain, restErr := ac.accountService.FindAccountsByUserIDService(userID)
+	accountDomain, restErr := ac.accountService.ListAccountsByUserIDService(userID)
 
 	if restErr != nil {
-		logger.Error("Error calling FindAccountsByUserIDService",
+		logger.Error("Error calling ListAccountsByUserIDService",
 			restErr,
-			zap.String("journey", "findAccountsByUserID"),
+			zap.String("journey", "listAccountsByUserID"),
 		)
 
 		c.JSON(restErr.Code, restErr)
@@ -63,8 +63,8 @@ func (ac *accountControllerInterface) FindAccountsByUserIDController(c *gin.Cont
 	}
 
 	logger.Info(
-		"FindAccountsByUserIDController executed successfully",
-		zap.String("journey", "findAccountsByUserID"),
+		"ListAccountsByUserIDController executed successfully",
+		zap.String("journey", "listAccountsByUserID"),
 	)
 
 	c.JSON(http.StatusOK, view.ConvertDomainsToResponses(accountDomain))

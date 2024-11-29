@@ -15,7 +15,7 @@ func NewAccountControllerInterface(
 
 type AccountControllerInterface interface {
 	CreateAccountController(c *gin.Context)
-	FindAccountsByUserIDController(c *gin.Context)
+	ListAccountsByUserIDController(c *gin.Context)
 	UpdateAccountController(c *gin.Context)
 	DeleteAccountController(c *gin.Context)
 }

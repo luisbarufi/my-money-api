@@ -21,7 +21,7 @@ func InitRoutes(
 		accountsGroup.GET(
 			"/user",
 			middlewares.VerifyTokenMiddleware,
-			accountController.FindAccountsByUserIDController,
+			accountController.ListAccountsByUserIDController,
 		)
 
 		accountsGroup.PUT(

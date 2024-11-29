@@ -22,7 +22,7 @@ type AccountRepository interface {
 		accountDomain model.AccountDomainInterface,
 	) (model.AccountDomainInterface, *rest_err.RestErr)
 
-	FindAccountsByUserIDRepository(
+	ListAccountsByUserIDRepository(
 		userID uint64,
 	) ([]model.AccountDomainInterface, *rest_err.RestErr)
 
