@@ -12,12 +12,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (tc *transactionControllerInterface) FindTrasactionsByUserIDController(
+func (tc *transactionControllerInterface) ListTrasactionsByUserIDController(
 	c *gin.Context,
 ) {
 	logger.Info(
-		"Init FindTrasactionsByUserIDController",
-		zap.String("journey", "findTransactionByUserID"),
+		"Init ListTrasactionsByUserIDController",
+		zap.String("journey", "listTransactionByUserID"),
 	)
 
 	secretKey := env.GetEnv("JWT_SECRET_KEY")
@@ -29,7 +29,7 @@ func (tc *transactionControllerInterface) FindTrasactionsByUserIDController(
 		logger.Error(
 			"Error when trying to parse to token",
 			err,
-			zap.String("journey", "findTransactionByUserID"),
+			zap.String("journey", "listTransactionByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -43,7 +43,7 @@ func (tc *transactionControllerInterface) FindTrasactionsByUserIDController(
 		logger.Error(
 			"Error while trying to extract token ID",
 			err,
-			zap.String("journey", "findTransactionByUserID"),
+			zap.String("journey", "listTransactionByUserID"),
 		)
 
 		c.JSON(err.Code, err)
@@ -51,12 +51,12 @@ func (tc *transactionControllerInterface) FindTrasactionsByUserIDController(
 		return
 	}
 
-	transactionDomain, restErr := tc.transactionService.FindTransactionsByUserIDService(userID)
+	transactionDomain, restErr := tc.transactionService.ListTransactionsByUserIDService(userID)
 
 	if restErr != nil {
-		logger.Error("Error calling FindTransactionsByUserIDService",
+		logger.Error("Error calling ListTransactionsByUserIDService",
 			restErr,
-			zap.String("journey", "findTransactionByUserID"),
+			zap.String("journey", "listTransactionByUserID"),
 		)
 
 		c.JSON(restErr.Code, restErr)
@@ -65,8 +65,8 @@ func (tc *transactionControllerInterface) FindTrasactionsByUserIDController(
 	}
 
 	logger.Info(
-		"FindTrasactionsByUserIDController executed successfully",
-		zap.String("journey", "findTransactionByUserID"),
+		"ListTrasactionsByUserIDController executed successfully",
+		zap.String("journey", "listTransactionByUserID"),
 	)
 
 	c.JSON(http.StatusOK, view.ConvertDomainsToResponses(transactionDomain))

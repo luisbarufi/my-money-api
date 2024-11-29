@@ -22,7 +22,7 @@ type TransactionRepository interface {
 		transactionDomain model.TransactionDomainInterface,
 	) (model.TransactionDomainInterface, *rest_err.RestErr)
 
-	FindTransactionsByUserIDRepository(
+	ListTransactionsByUserIDRepository(
 		userID uint64,
 	) ([]model.TransactionDomainInterface, *rest_err.RestErr)
 

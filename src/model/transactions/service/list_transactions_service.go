@@ -7,18 +7,18 @@ import (
 	"go.uber.org/zap"
 )
 
-func (td *transactionDomainService) FindTransactionsByUserIDService(
+func (td *transactionDomainService) ListTransactionsByUserIDService(
 	userID uint64,
 ) ([]model.TransactionDomainInterface, *rest_err.RestErr) {
 	logger.Info(
-		"Init FindTransactionsByUserIDService",
-		zap.String("journey", "findTransactionsByUserID"),
+		"Init ListTransactionsByUserIDService",
+		zap.String("journey", "listTransactionsByUserID"),
 	)
 
 	logger.Info(
-		"FindTransactionsByUserIDService executed successfully",
-		zap.String("journey", "findTransactionsByUserID"),
+		"ListTransactionsByUserIDService executed successfully",
+		zap.String("journey", "listTransactionsByUserID"),
 	)
 
-	return td.transactionRepository.FindTransactionsByUserIDRepository(userID)
+	return td.transactionRepository.ListTransactionsByUserIDRepository(userID)
 }

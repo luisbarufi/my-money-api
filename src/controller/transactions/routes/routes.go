@@ -22,7 +22,7 @@ func InitRoutes(
 		transactionGroup.GET(
 			"/user",
 			middlewares.VerifyTokenMiddleware,
-			transactionController.FindTrasactionsByUserIDController,
+			transactionController.ListTrasactionsByUserIDController,
 		)
 
 		transactionGroup.PUT(

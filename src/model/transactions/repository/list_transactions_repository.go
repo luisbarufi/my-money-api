@@ -9,12 +9,12 @@ import (
 	"go.uber.org/zap"
 )
 
-func (tr *transactionRepository) FindTransactionsByUserIDRepository(
+func (tr *transactionRepository) ListTransactionsByUserIDRepository(
 	userID uint64,
 ) ([]model.TransactionDomainInterface, *rest_err.RestErr) {
 	logger.Info(
-		"Init FindTransactionsByUserIDRepository",
-		zap.String("journey", "findTransactionByUserID"),
+		"Init ListTransactionsByUserIDRepository",
+		zap.String("journey", "listTransactionByUserID"),
 	)
 
 	row, err := tr.db.Query("SELECT * FROM transactions WHERE user_id = $1", userID)
@@ -23,7 +23,7 @@ func (tr *transactionRepository) FindTransactionsByUserIDRepository(
 		logger.Error(
 			"Error executing find transaction query",
 			err,
-			zap.String("journey", "findTransactionByUserID"),
+			zap.String("journey", "listTransactionByUserID"),
 		)
 
 		return nil, rest_err.NewInternalServerError(err.Error())
@@ -49,7 +49,7 @@ func (tr *transactionRepository) FindTransactionsByUserIDRepository(
 			logger.Error(
 				"Error scanning insert category result",
 				err,
-				zap.String("journey", "findCategoriesByUserID"),
+				zap.String("journey", "listTransactionByUserID"),
 			)
 
 			return nil, rest_err.NewInternalServerError(err.Error())

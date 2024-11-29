@@ -15,7 +15,7 @@ func NewTransactionControllerInterface(
 
 type TransactionControllerInterface interface {
 	CreateTransactionController(c *gin.Context)
-	FindTrasactionsByUserIDController(c *gin.Context)
+	ListTrasactionsByUserIDController(c *gin.Context)
 	UpdateTransactionController(c *gin.Context)
 	DeleteTransactionController(c *gin.Context)
 }
